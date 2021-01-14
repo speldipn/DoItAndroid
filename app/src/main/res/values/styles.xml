@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar"/>
+   <style name="AppThemeCustom" parent="Theme.AppCompat.NoActionBar"/>
+   <style name="DialogOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+   <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Dialog"/>
+</resources>
