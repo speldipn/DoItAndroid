@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tpmn.doitandroid">
 
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -10,14 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeCustom">
-<<<<<<< HEAD
 
         <receiver
             android:name=".SmsReceiver"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 
@@ -25,12 +24,6 @@
             android:name=".MyService"
             android:enabled="true"
             android:exported="false" />
-=======
-        <service
-            android:name=".MyService"
-            android:enabled="true"
-            android:exported="true"></service>
->>>>>>> f7cf400c2aa3bb0b5dfeb80ae50fc1a202085332
 
         <activity android:name=".DrawerActivity" />
         <activity
