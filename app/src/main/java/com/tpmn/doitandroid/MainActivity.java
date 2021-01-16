@@ -1,12 +1,9 @@
 package com.tpmn.doitandroid;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +14,7 @@ import com.pedro.library.AutoPermissionsListener;
 public class MainActivity extends AppCompatActivity implements AutoPermissionsListener {
 
     Button startServiceButton;
-    EditText editText;
+    EditText nameEditText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
