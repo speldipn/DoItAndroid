@@ -5,32 +5,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SmsReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("speldipn", "onReceived()");
-
+        ArrayList<CustomSMS> smsList = new ArrayList<>();
         Bundle bundle = intent.getExtras();
         SmsMessage[] messages = parseSmsMessage(bundle);
-
         if (messages != null) {
             for (SmsMessage message : messages) {
                 String sender = message.getOriginatingAddress();
-                Log.d("speldipn", "SMS sender: " + sender);
-
                 String contents = message.getMessageBody();
-                Log.d("speldipn", "SMS contents: " + contents);
-
                 Date receivedDate = new Date(message.getTimestampMillis());
-                Log.d("speldipn", "SMS received date: " + receivedDate);
+                smsList.add(new CustomSMS(sender, contents, receivedDate.toString()));
             }
         }
+        Intent smsIntent = new Intent(context, SmsActivity.class);
+        smsIntent.putExtra("sms", smsList);
+        context.startActivity(smsIntent);
     }
 
     private SmsMessage[] parseSmsMessage(Bundle bundle) {
@@ -52,4 +53,48 @@ public class SmsReceiver extends BroadcastReceiver {
 
         return smsMessages;
     }
+}
+
+class CustomSMS implements Parcelable {
+
+    String phone;
+    String message;
+    String date;
+
+    protected CustomSMS(String phone, String message, String date) {
+        this.phone = phone;
+        this.message = message;
+        this.date = date;
+    }
+
+    protected CustomSMS(Parcel in) {
+        this.phone = in.readString();
+        this.message = in.readString();
+        this.date = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(phone);
+        dest.writeString(message);
+        dest.writeString(date);
+    }
+
+    public static final Creator<CustomSMS> CREATOR = new Creator<CustomSMS>() {
+        @Override
+        public CustomSMS createFromParcel(Parcel in) {
+            return new CustomSMS(in);
+        }
+
+        @Override
+        public CustomSMS[] newArray(int size) {
+            return new CustomSMS[size];
+        }
+    };
+
 }
