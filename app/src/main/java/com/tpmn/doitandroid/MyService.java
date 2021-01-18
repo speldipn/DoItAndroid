@@ -1,9 +1,12 @@
 package com.tpmn.doitandroid;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class MyService extends Service {
     public MyService() {
@@ -40,24 +43,12 @@ public class MyService extends Service {
     }
 
     private void processCommand(Intent intent) {
-        String command = intent.getStringExtra("command");
-        String name = intent.getStringExtra("name");
-        Log.d("speldipn", command + " " + name);
-
-        try {
-            for (int i = 0; i < 5; ++i) {
-                Log.d("speldipn", "Sleep 1sec..");
-                Thread.sleep(1000);
-            }
-            Intent showIntent = new Intent(getApplicationContext(), MenuActivity.class);
-            showIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            showIntent.putExtra("command", "show");
-            showIntent.putExtra("name", "intent from service");
-            startActivity(showIntent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Log.d("speldipn", "End");
+        String msg = intent.getStringExtra(MainActivity.EXTRA_MSG);
+        if(!msg.isEmpty()) {
+            Intent intent1 = new Intent("doitandroid");
+            intent1.putExtra(MainActivity.EXTRA_MSG, msg);
+            sendBroadcast(intent1);
+            Log.d("speldipn", "Service to Broadcast");
         }
     }
 }
