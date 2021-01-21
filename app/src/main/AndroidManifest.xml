@@ -10,7 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeCustom">
-        <activity android:name=".SmsActivity"></activity>
+        <activity
+            android:name=".InputActivity"
+            android:theme="@style/NoAnimTheme" />
+        <activity android:name=".SmsActivity" />
 
         <receiver
             android:name=".SmsReceiver"
@@ -30,7 +33,9 @@
         <activity
             android:name=".MenuActivity"
             android:label="메뉴 Activity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/NoAnimTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

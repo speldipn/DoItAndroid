@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:background="#5555ff"
+    tools:context=".InputActivity">
 
     <Button
-        android:id="@+id/nextbutton"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="next"
+        android:text="Prev"
+        android:textAllCaps="false"
         android:textSize="20sp" />
 
 </RelativeLayout>
