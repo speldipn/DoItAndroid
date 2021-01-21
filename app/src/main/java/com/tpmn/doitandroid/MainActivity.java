@@ -1,83 +1,85 @@
 package com.tpmn.doitandroid;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.pedro.library.AutoPermissions;
-import com.pedro.library.AutoPermissionsListener;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MSG = "EXTRA_MSG";
 
-    LinearLayout page;
-    Animation translateStart;
-    Animation translateEnd;
-    Button button;
+    BackgroundTask backgroundTask;
+    ProgressBar progressBar;
+    Button confirmButton;
+    Button cancelButton;
 
-    boolean isPageOpen = false;
+    int value = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        page = findViewById(R.id.page);
-        translateStart = AnimationUtils.loadAnimation(this, R.anim.translate_start);
-        translateEnd= AnimationUtils.loadAnimation(this, R.anim.translate_end);
-
-        SlidingPageAnimationListener animListener = new SlidingPageAnimationListener();
-        translateStart.setAnimationListener(animListener);
-        translateEnd.setAnimationListener(animListener);
-
-        button = findViewById(R.id.button);
-        button.setOnClickListener(v -> {
-            if (isPageOpen) {
-                page.setVisibility(View.GONE);
-                page.startAnimation(translateEnd);
-            } else {
-                page.setVisibility(View.VISIBLE);
-                page.startAnimation(translateStart);
-            }
+        progressBar = findViewById(R.id.progressBar);
+        confirmButton = findViewById(R.id.confirmButton);
+        confirmButton.setOnClickListener(v -> {
+            backgroundTask = new BackgroundTask();
+            backgroundTask.execute();
         });
+        cancelButton = findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(v -> {
+            if(backgroundTask != null) { backgroundTask.cancel(false); }
+        });
+
     }
 
-    private class SlidingPageAnimationListener implements  Animation.AnimationListener {
+    class BackgroundTask extends AsyncTask<Integer, Integer, Integer> {
 
         @Override
-        public void onAnimationStart(Animation animation) {
-            if(isPageOpen) {
-                button.setText("Open");
-                isPageOpen = false;
-            } else {
-                button.setText("Close");
-                isPageOpen = true;
+        protected void onPreExecute() {
+            value = 0;
+            progressBar.setProgress(value);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            if(integers.length > 0) {
+                Log.d("speldipn", "doInBackground:" + integers[0]);
+                value = integers[0];
             }
+            while (!isCancelled()) {
+                value += 1;
+                if (value >= 100) {
+                    break;
+                } else {
+                    publishProgress(value);
+                }
+
+                try { Thread.sleep(100); } catch (Exception ignored) { }
+            }
+
+            return value;
         }
 
         @Override
-        public void onAnimationEnd(Animation animation) {
-
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setProgress(values[0]);
         }
 
         @Override
-        public void onAnimationRepeat(Animation animation) {
+        protected void onPostExecute(Integer integer) {
+            progressBar.setProgress(0);
+        }
 
+        @Override
+        protected void onCancelled() {
+            progressBar.setProgress(0);
         }
     }
 }
