@@ -7,8 +7,11 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -20,60 +23,61 @@ import com.pedro.library.AutoPermissionsListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText inputEditText;
-    Button startServiceButton;
-    TextView messageTextView;
-
-    BroadcastReceiver receiver;
-
     public static final String EXTRA_MSG = "EXTRA_MSG";
+
+    LinearLayout page;
+    Animation translateStart;
+    Animation translateEnd;
+    Button button;
+
+    boolean isPageOpen = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        inputEditText = findViewById(R.id.inputEditText);
-        startServiceButton = findViewById(R.id.startServiceButton);
-        messageTextView = findViewById(R.id.messageTextView);
+        page = findViewById(R.id.page);
+        translateStart = AnimationUtils.loadAnimation(this, R.anim.translate_start);
+        translateEnd= AnimationUtils.loadAnimation(this, R.anim.translate_end);
 
-        startServiceButton.setOnClickListener(v -> {
-           String msg = inputEditText.getText().toString();
-           Intent intent = new Intent(MainActivity.this, MyService.class);
-           intent.putExtra(EXTRA_MSG, msg);
-           startService(intent);
-            Log.d("speldipn", "Activity to service");
-        });
+        SlidingPageAnimationListener animListener = new SlidingPageAnimationListener();
+        translateStart.setAnimationListener(animListener);
+        translateEnd.setAnimationListener(animListener);
 
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String msg = intent.getStringExtra(MainActivity.EXTRA_MSG);
-                Intent showIntent = new Intent(getApplicationContext(), MainActivity.class);
-                showIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                showIntent.putExtra(MainActivity.EXTRA_MSG, msg);
-                startActivity(showIntent);
-                Log.d("speldipn", "Broadcast to activity");
+        button = findViewById(R.id.button);
+        button.setOnClickListener(v -> {
+            if (isPageOpen) {
+                page.setVisibility(View.GONE);
+                page.startAnimation(translateEnd);
+            } else {
+                page.setVisibility(View.VISIBLE);
+                page.startAnimation(translateStart);
             }
-        };
-        registerReceiver(receiver, new IntentFilter("doitandroid"));
+        });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(receiver);
-    }
+    private class SlidingPageAnimationListener implements  Animation.AnimationListener {
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if(intent != null) {
-            String message = intent.getStringExtra(EXTRA_MSG);
-            if(!message.isEmpty()) { messageTextView.setText(message); }
-            Log.d("speldipn", "Update message text of activity");
+        @Override
+        public void onAnimationStart(Animation animation) {
+            if(isPageOpen) {
+                button.setText("Open");
+                isPageOpen = false;
+            } else {
+                button.setText("Close");
+                isPageOpen = true;
+            }
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
         }
     }
-
-
 }
