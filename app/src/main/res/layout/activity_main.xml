@@ -7,12 +7,42 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/controlView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/urlEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="input url"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/goButton"
+            android:layout_width="0dp"
+            android:text="Go"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/showControlButton"
+        android:layout_below="@id/controlView" />
+
     <Button
-        android:id="@+id/nextbutton"
-        android:layout_width="wrap_content"
+        android:id="@+id/showControlButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="next"
+        android:layout_alignParentBottom="true"
+        android:text="Show"
+        android:textAllCaps="false"
         android:textSize="20sp" />
 
 </RelativeLayout>

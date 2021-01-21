@@ -3,16 +3,16 @@
     package="com.tpmn.doitandroid">
 
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppThemeCustom">
-        <activity
-            android:name=".InputActivity"
-            android:theme="@style/NoAnimTheme" />
+        <activity android:name=".InputActivity"/>
         <activity android:name=".SmsActivity" />
 
         <receiver
@@ -34,8 +34,7 @@
             android:name=".MenuActivity"
             android:label="메뉴 Activity" />
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/NoAnimTheme">
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

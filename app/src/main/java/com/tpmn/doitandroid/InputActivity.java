@@ -20,7 +20,7 @@ public class InputActivity extends AppCompatActivity {
         setContentView(thisView);
         backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> { finish();});
-        thisView.startAnimation(MainActivity.animLeft);
+//        thisView.startAnimation(MainActivity.animLeft);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class InputActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
-        thisView.startAnimation(MainActivity.animRight);
+//        thisView.startAnimation(MainActivity.animRight);
         new Handler(getMainLooper()).postDelayed(super::finish, 500);
     }
 }
