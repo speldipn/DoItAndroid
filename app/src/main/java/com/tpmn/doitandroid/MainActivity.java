@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         stopButton = findViewById(R.id.stopButton);
 
-        userList.add(new User("오준영", "010-7319-5025", "오류동 51-31 406호"));
-        userList.add(new User("오자람", "010-5552-0322", "고척동 홍성파크빌 201호"));
+        userList.add(new User("Neo", "010-3333-1111", "오류동 123-456 106호"));
+        userList.add(new User("Rami", "010-5555-2222", "고척동 456-123 101호"));
 
         startButton.setOnClickListener(v -> {
             isRun = true;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         new Handler(getMainLooper()).post(() -> {
                             itemView.startAnimation(appearAnim);
                         });
-                        try { Thread.sleep(2000); } catch (Exception e) { }
+                        try { Thread.sleep(2000); } catch (Exception ignored) { }
                     }
                 }
             }).start();
