@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        userList.add(new User("오준영", "010-7319-5025", "오류동 51-31 포스시티 406호"));
-        userList.add(new User("오자람", "010-0322-7842", "고척동 241-196 홍성파크빌 201호"));
 
         initAnim = AnimationUtils.loadAnimation(this, R.anim.init);
         appearAnim = AnimationUtils.loadAnimation(this, R.anim.appear);
