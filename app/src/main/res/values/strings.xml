@@ -4,8 +4,8 @@
     <string name="search">Search</string>
     <string name="refresh">Refresh</string>
     <string name="settings">Settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
+    <string name="slding_info_format">고객정보 %1$d/%2$d</string>
 </resources>
