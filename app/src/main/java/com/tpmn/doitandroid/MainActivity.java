@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         public DatabaseHelper(Context context) {
             super(context, NAME, null, VERSION);
-        ㅓ}
+        }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
