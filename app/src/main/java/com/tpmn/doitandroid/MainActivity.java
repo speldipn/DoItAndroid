@@ -15,9 +15,14 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -25,6 +30,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.Buffer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,16 +68,14 @@ public class MainActivity extends AppCompatActivity {
             String msg = editText.getText().toString();
             new Thread(() -> {
                 try {
-                    socket = new Socket();
-                    socket.connect(new InetSocketAddress("localhost", PORT));
-                    if (socket.isConnected()) {
-                        OutputStream os = socket.getOutputStream();
-                        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
-                        bw.write(msg);
-                        printClientLog(msg);
-                        socket.close();
-                    }
-                } catch (IOException e) {
+                    socket = new Socket("localhost", PORT);
+                    OutputStream os = socket.getOutputStream();
+                    DataOutputStream dos = new DataOutputStream(os);
+                    dos.writeUTF(msg);
+                    printClientLog("Send data to server");
+                    socket.close();
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }).start();
@@ -101,13 +105,15 @@ public class MainActivity extends AppCompatActivity {
                 serverSocket = new ServerSocket(PORT);
                 printServerLog("Server listening..");
                 Socket sock = serverSocket.accept();
-                while (sock.isConnected()) {
-                    printServerLog("Acception.");
-                    InputStream inputStream = sock.getInputStream();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-                    printServerLog(br.readLine());
-                }
-            } catch (IOException e) {
+                printServerLog("Acception.");
+                InputStream is = sock.getInputStream();
+                DataInputStream br = new DataInputStream(is);
+                String msg = br.readUTF();
+                printServerLog("received data "  + msg);
+                sock.close();
+                serverSocket.close();
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
