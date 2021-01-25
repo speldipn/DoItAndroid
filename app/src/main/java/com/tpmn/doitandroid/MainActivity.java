@@ -1,127 +1,127 @@
 package com.tpmn.doitandroid;
 
-import android.content.Context;
+import android.Manifest;
+import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.sql.SQLInput;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MSG = "EXTRA_MSG";
-    public static String NAME = "neo.db";
-    public static int VERSION = 1;
 
-    EditText dbNameEditText;
-    Button createDbButton;
-    EditText tableNameEditText;
-    Button createTableButton;
-    TextView infoTextView;
-
-    DatabaseHelper dbHelper;
-    SQLiteDatabase database;
+    TextView textView;
+    Button button;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setup();
+
+        requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS}, 1000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 102) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    Uri contactsUri = data.getData();
+                    String id = contactsUri.getLastPathSegment();
+
+                    getContacts(id);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if (requestCode == 101) {
+            if (resultCode == RESULT_OK) {
+                Uri fileUri = data.getData();
+                Log.d("speldipn", "fileUri: " + fileUri);
+
+                ContentResolver resolver = getContentResolver();
+                try {
+                    InputStream instream = resolver.openInputStream(fileUri);
+                    Bitmap imgBitmap = BitmapFactory.decodeStream(instream);
+//                    imageView.setImageBitmap(imgBitmap);
+
+                    instream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void getContacts(String id) {
+        Cursor cursor = null;
+        String name = "";
+
+        try {
+            cursor = getContentResolver().query(ContactsContract.Data.CONTENT_URI,
+                    null, ContactsContract.Data.CONTACT_ID + "=?", new String[]{id}, null);
+
+            if (cursor.moveToFirst()) {
+                name = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+                printMsg("Name: " + name);
+
+                String columns[] = cursor.getColumnNames();
+                for (String column : columns) {
+                    int index = cursor.getColumnIndex(column);
+                    String columnOutput = ("#" + index + " -> [" + column + "] " + cursor.getString(index));
+                    printMsg(columnOutput);
+                }
+                cursor.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void printMsg(String msg) {
+        textView.append(msg + "\n");
     }
 
     private void setup() {
-        dbNameEditText = findViewById(R.id.dbNameEditText);
-        createDbButton = findViewById(R.id.createDbButton);
-
-        tableNameEditText = findViewById(R.id.tableNameEditText);
-        createTableButton = findViewById(R.id.createTableButton);
-
-        infoTextView = findViewById(R.id.infoTextView);
-
-        createDbButton.setOnClickListener(v -> {
-           dbHelper = new DatabaseHelper(this);
-           database = dbHelper.getWritableDatabase();
-           printLogMsg("db created");
-           insertQuery();
-        });
-
-        createTableButton.setOnClickListener(v -> {
-            executeQuery();
+//        imageView = findViewById(R.id.imageView);
+        textView = findViewById(R.id.textView);
+        button = findViewById(R.id.button);
+        button.setOnClickListener(v -> {
+//            openGallery();
+            chooseContacts();
         });
     }
 
-    private void insertQuery() {
-        String sql = "insert into emp (name, age, mobile) values ('neo', 34, 'samples...')";
-        database.execSQL(sql);
+    private void chooseContacts() {
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, 102);
     }
 
-    private void executeQuery() {
-        printLogMsg("executeQuery called");
+    private void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
 
-        Cursor cursor = database.rawQuery("select _id, name, age, mobile from emp", null);
-        int recordCount = cursor.getCount();
-        printLogMsg("recordCount: " + recordCount);
-
-        for(int i = 0; i < recordCount; ++i) {
-            cursor.moveToNext();
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            int age = cursor.getInt(2);
-            String mobile = cursor.getString(3);
-
-            printLogMsg(id + ", " + name + ", " + age + ", " + mobile);
-        }
-        cursor.close();
-    }
-
-    private void printLogMsg(String msg) {
-        new Handler(Looper.getMainLooper()).post(() -> {
-            infoTextView.append(msg + "\n");
-        });
-    }
-
-    class DatabaseHelper extends SQLiteOpenHelper {
-
-        public DatabaseHelper(Context context) {
-            super(context, NAME, null, VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            printLogMsg("Create db called");
-            String sql = "create table if not exists emp(" +
-                    " _id integer PRIMARY KEY autoincrement," +
-                    " name text," +
-                    " age integer," +
-                    " mobile text)";
-
-            db.execSQL(sql);
-        }
-
-        @Override
-        public void onOpen(SQLiteDatabase db) {
-            printLogMsg("onOpen called");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            printLogMsg("onUpgrade called " + oldVersion + " -> " + newVersion);
-
-            if(newVersion > 1) {
-                db.execSQL("DROP TABLE IF EXISTS emp");
-            }
-        }
+        startActivityForResult(intent, 101);
     }
 }
 

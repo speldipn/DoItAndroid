@@ -7,51 +7,23 @@
     android:orientation="vertical"
     android:padding="5dp">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="button"
+        android:textAllCaps="false" />
 
-        <EditText
-            android:id="@+id/dbNameEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3" />
-
-        <Button
-            android:id="@+id/createDbButton"
-            android:text="Create db"
-            android:textAllCaps="false"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/tableNameEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_foreground" />
 
-        <Button
-            android:id="@+id/createTableButton"
-            android:layout_width="0dp"
-            android:text="Create table"
-            android:textAllCaps="false"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/infoTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp" />
+    </ScrollView>
 
 </LinearLayout>
