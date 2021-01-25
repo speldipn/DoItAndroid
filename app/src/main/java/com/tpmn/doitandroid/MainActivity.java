@@ -1,6 +1,10 @@
 package com.tpmn.doitandroid;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -8,12 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.sql.SQLInput;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MSG = "EXTRA_MSG";
+    public static String NAME = "neo.db";
+    public static int VERSION = 1;
 
     EditText dbNameEditText;
     Button createDbButton;
@@ -21,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
     Button createTableButton;
     TextView infoTextView;
 
+    DatabaseHelper dbHelper;
     SQLiteDatabase database;
-    String dbName;
-    String tableName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,31 +50,39 @@ public class MainActivity extends AppCompatActivity {
         infoTextView = findViewById(R.id.infoTextView);
 
         createDbButton.setOnClickListener(v -> {
-            printLogMsg("create db called.");
-            dbName = dbNameEditText.getText().toString();
-            database = openOrCreateDatabase(dbName, MODE_PRIVATE, null);
-            printLogMsg("DB created. " + dbName);
+           dbHelper = new DatabaseHelper(this);
+           database = dbHelper.getWritableDatabase();
+           printLogMsg("db created");
+           insertQuery();
         });
 
         createTableButton.setOnClickListener(v -> {
-            printLogMsg("create table called.");
-            tableName = tableNameEditText.getText().toString();
-
-            if(database == null) {
-                printLogMsg("Must create db");
-                return;
-            }
-
-            database.execSQL("create table if not exists " + tableName + "(" +
-                    " _id integer PRIMARY KEY autoincrement, " +
-                    " name text, " +
-                    " age integer, " +
-                    " mobile text)");
-
-            printLogMsg("table created");
-
-            insertRecord();
+            executeQuery();
         });
+    }
+
+    private void insertQuery() {
+        String sql = "insert into emp (name, age, mobile) values ('neo', 34, 'samples...')";
+        database.execSQL(sql);
+    }
+
+    private void executeQuery() {
+        printLogMsg("executeQuery called");
+
+        Cursor cursor = database.rawQuery("select _id, name, age, mobile from emp", null);
+        int recordCount = cursor.getCount();
+        printLogMsg("recordCount: " + recordCount);
+
+        for(int i = 0; i < recordCount; ++i) {
+            cursor.moveToNext();
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            int age = cursor.getInt(2);
+            String mobile = cursor.getString(3);
+
+            printLogMsg(id + ", " + name + ", " + age + ", " + mobile);
+        }
+        cursor.close();
     }
 
     private void printLogMsg(String msg) {
@@ -75,24 +91,37 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void insertRecord() {
-        printLogMsg("insertRecord called");
+    class DatabaseHelper extends SQLiteOpenHelper {
 
-        if(database == null) {
-            printLogMsg("database is null");
-            return;
+        public DatabaseHelper(Context context) {
+            super(context, NAME, null, VERSION);
+        ㅓ}
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            printLogMsg("Create db called");
+            String sql = "create table if not exists emp(" +
+                    " _id integer PRIMARY KEY autoincrement," +
+                    " name text," +
+                    " age integer," +
+                    " mobile text)";
+
+            db.execSQL(sql);
         }
 
-        if(tableName == null) {
-            printLogMsg("must create table");
-            return;
+        @Override
+        public void onOpen(SQLiteDatabase db) {
+            printLogMsg("onOpen called");
         }
 
-        database.execSQL("insert into " + tableName +
-                        "(name, age, mobile) " +
-                         "  values" +
-                " ('Neo', 34, '010-7319-5025')");
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            printLogMsg("onUpgrade called " + oldVersion + " -> " + newVersion);
 
-        printLogMsg("insertRecord done");
+            if(newVersion > 1) {
+                db.execSQL("DROP TABLE IF EXISTS emp");
+            }
+        }
     }
 }
+
