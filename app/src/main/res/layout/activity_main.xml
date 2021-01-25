@@ -1,62 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#8888ff"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="input data"
-            android:textColor="@color/white" />
+            android:inputType="text" />
 
         <Button
             android:id="@+id/sendButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Send"
             android:textAllCaps="false" />
 
         <TextView
-            android:id="@+id/clientLogTextView"
+            android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:textSize="15sp"
-            android:textColor="@color/white"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+            android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#5555ff"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/startServerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start server"
-            android:textAllCaps="false" />
-
-        <TextView
-            android:id="@+id/serverLogTextView"
-            android:layout_width="match_parent"
-            android:textSize="15sp"
-            android:textColor="@color/white"
-            android:layout_height="match_parent"/>
 
     </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>
