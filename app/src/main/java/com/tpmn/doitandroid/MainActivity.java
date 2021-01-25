@@ -1,109 +1,98 @@
 package com.tpmn.doitandroid;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.io.DataInputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MSG = "EXTRA_MSG";
-    public static final String API_KEY = "a3e02fe5f2d64c07865f25f3d94c0c21";
 
-    RecyclerView recyclerView;
-    Button getButton;
+    EditText dbNameEditText;
+    Button createDbButton;
+    EditText tableNameEditText;
+    Button createTableButton;
+    TextView infoTextView;
 
-    Retrofit retrofit;
-    APIService apiService;
-    NewsApdater newsApdater;
-
-    public interface APIService {
-        @GET("everything")
-        Call<NewsModel> getNews(@Query("q") String query, @Query("from") String from, @Query("sortBy") String sortBy, @Query("apiKey") String key);
-    }
+    SQLiteDatabase database;
+    String dbName;
+    String tableName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setup();
-        initAPI();
-    }
-
-    private void initAPI() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient okHttpClient = new OkHttpClient()
-                .newBuilder()
-                .addInterceptor(httpLoggingInterceptor)
-                .build();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://newsapi.org/v2/")
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-
-        apiService = retrofit.create(APIService.class);
     }
 
     private void setup() {
-        recyclerView = findViewById(R.id.recyclerView);
-        getButton = findViewById(R.id.getButton);
+        dbNameEditText = findViewById(R.id.dbNameEditText);
+        createDbButton = findViewById(R.id.createDbButton);
 
-        getButton.setOnClickListener(v -> {
-            request();
+        tableNameEditText = findViewById(R.id.tableNameEditText);
+        createTableButton = findViewById(R.id.createTableButton);
+
+        infoTextView = findViewById(R.id.infoTextView);
+
+        createDbButton.setOnClickListener(v -> {
+            printLogMsg("create db called.");
+            dbName = dbNameEditText.getText().toString();
+            database = openOrCreateDatabase(dbName, MODE_PRIVATE, null);
+            printLogMsg("DB created. " + dbName);
         });
 
-        newsApdater = new NewsApdater();
-        recyclerView.setAdapter(newsApdater);
+        createTableButton.setOnClickListener(v -> {
+            printLogMsg("create table called.");
+            tableName = tableNameEditText.getText().toString();
+
+            if(database == null) {
+                printLogMsg("Must create db");
+                return;
+            }
+
+            database.execSQL("create table if not exists " + tableName + "(" +
+                    " _id integer PRIMARY KEY autoincrement, " +
+                    " name text, " +
+                    " age integer, " +
+                    " mobile text)");
+
+            printLogMsg("table created");
+
+            insertRecord();
+        });
     }
 
-    private void request() {
-        String query = "game";
-        String from = "2021-01-25";
-        String sortBy = "publishedAt";
-        String apiKey = API_KEY;
-
-        apiService.getNews(query, from, sortBy, apiKey).enqueue(new Callback<NewsModel>() {
-            @Override
-            public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
-                if(response.isSuccessful()) {
-                    newsApdater.setDataAndRefresh(response.body().getItems());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<NewsModel> call, Throwable t) {
-
-            }
+    private void printLogMsg(String msg) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            infoTextView.append(msg + "\n");
         });
+    }
+
+    private void insertRecord() {
+        printLogMsg("insertRecord called");
+
+        if(database == null) {
+            printLogMsg("database is null");
+            return;
+        }
+
+        if(tableName == null) {
+            printLogMsg("must create table");
+            return;
+        }
+
+        database.execSQL("insert into " + tableName +
+                        "(name, age, mobile) " +
+                         "  values" +
+                " ('Neo', 34, '010-7319-5025')");
+
+        printLogMsg("insertRecord done");
     }
 }
