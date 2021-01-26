@@ -6,12 +6,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +32,20 @@ public class MainActivity extends AppCompatActivity {
     public static final String BOOK_AUTHOR = "author";
     public static final String BOOK_CONTENT = "content";
 
+    TabLayout tabLayout;
+    RecyclerView recyclerView;
     EditText titleEditText;
     EditText authorEditText;
     EditText contentEditText;
     Button saveButton;
     TextView debugTextView;
 
+    View selectView;
+
     SQLiteDatabase database;
 
     List<Book> bookList = new ArrayList<>();
+    BookAdapter bookAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,10 +64,48 @@ public class MainActivity extends AppCompatActivity {
             saveData();
         });
         debugTextView = findViewById(R.id.debugTextView);
+        tabLayout = findViewById(R.id.tabLayout);
+        recyclerView = findViewById(R.id.recyclerView);
+        selectView = findViewById(R.id.selectView);
 
+        bookAdapter = new BookAdapter();
+        recyclerView.setAdapter(bookAdapter);
+
+        setTabs();
         createDdatabase();
         getData();
     }
+
+    private void setTabs() {
+        tabLayout.addTab(tabLayout.newTab()
+                .setTag("input")
+                .setText("입력")
+        );
+
+        tabLayout.addTab(tabLayout.newTab()
+                .setTag("select")
+                .setText("조회")
+        );
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                String tag = (String) tab.getTag();
+                switch (tag) {
+                    case "select": selectView.setVisibility(View.VISIBLE); break;
+                    default: selectView.setVisibility(View.GONE); break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) { }
+        });
+
+    }
+
 
     private void saveData() {
         String title = titleEditText.getText().toString();
@@ -83,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 ")";
 
         database.execSQL(sql);
+        getData();
         printMsg(title + ", " + author + ", " + content + " saved.");
     }
 
@@ -102,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 null,
                 null);
 
+        bookList.clear();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 Book book = new Book();
@@ -114,12 +163,14 @@ public class MainActivity extends AppCompatActivity {
             cursor.close();
         }
 
-        if(bookList.size() > 0) {
+        if (bookList.size() > 0) {
             Book book = bookList.get(bookList.size() - 1);
             titleEditText.setText(book.title);
             authorEditText.setText(book.author);
             contentEditText.setText(book.content);
         }
+
+        bookAdapter.setDataAndRefresh(bookList);
 
         printMsg("Get books all " + bookList.size());
     }
