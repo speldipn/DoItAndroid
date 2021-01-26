@@ -9,10 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tpmn.doitandroid.MainActivity.Book;
-
 import java.util.ArrayList;
 import java.util.List;
+
+class Book {
+    String title;
+    String author;
+    String content;
+}
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
 
