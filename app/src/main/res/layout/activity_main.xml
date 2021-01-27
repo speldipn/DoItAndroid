@@ -6,17 +6,38 @@
     android:orientation="vertical"
     android:padding="5dp">
 
-    <TextView
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="두 손가락을 이용해 터치해보세요"
-        android:textColor="#5555ff"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/conatiner"
+        <RadioButton
+            android:id="@+id/radioSquare"
+            android:text="SQUARE"
+            android:checked="true"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/radioButt"
+            android:text="BUTT"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/radioRound"
+            android:text="ROUND"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+    </RadioGroup>
+    <com.tpmn.doitandroid.CustomViewCap
+        android:id="@+id/customViewCap"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
