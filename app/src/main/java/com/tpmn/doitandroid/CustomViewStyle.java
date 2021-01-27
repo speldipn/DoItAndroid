@@ -36,7 +36,7 @@ public class CustomViewStyle extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.clipRect(220, 240, 250, 270, Region.Op.REPLACE);
+//        canvas.clipRect(220, 240, 250, 270, Region.Op.REPLACE);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.RED);
         canvas.drawRect(220, 240, 320, 340, paint);

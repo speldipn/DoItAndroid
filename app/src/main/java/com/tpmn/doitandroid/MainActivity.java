@@ -8,14 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MSG = "EXTRA_MSG";
-    CustomViewStyle customViewStyle;
+    CustomViewDrawable customViewDrawable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        customViewStyle = new CustomViewStyle(this);
-        setContentView(customViewStyle);
-//        setContentView(R.layout.activity_main);
+        customViewDrawable = new CustomViewDrawable(this);
+        setContentView(customViewDrawable);
         setup();
     }
 
