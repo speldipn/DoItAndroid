@@ -6,4 +6,17 @@
     android:orientation="vertical"
     android:padding="5dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="두 손가락을 이용해 터치해보세요"
+        android:textColor="#5555ff"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/conatiner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+
 </LinearLayout>
