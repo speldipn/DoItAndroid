@@ -10,13 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MSG = "EXTRA_MSG";
-    CustomViewDrawing customViewDrawing;
+
+    CustomViewDrawingImproved customView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        customViewDrawing = new CustomViewDrawing(this);
-        setContentView(customViewDrawing);
+        customView = new CustomViewDrawingImproved(this);
+        setContentView(customView);
         setup();
     }
 
