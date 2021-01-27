@@ -6,9 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Point;
+import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -16,11 +15,21 @@ import androidx.annotation.Nullable;
 
 public class CustomViewDrawingImproved extends View {
 
+    Canvas canvas;
+    Bitmap bitmap;
     Paint paint;
-    Bitmap cacheBitmap;
-    Canvas cacheCanvas;
-    Path path;
-    Point prevPos;
+
+    float lastX;
+    float lastY;
+
+    Path path = new Path();
+
+    float curveEndX;
+    float curveEndY;
+
+    int invalidateExtraBorder = 10;
+
+    static final float TOUCH_TOLERANCE = 8;
 
     public CustomViewDrawingImproved(Context context) {
         super(context);
@@ -34,53 +43,116 @@ public class CustomViewDrawingImproved extends View {
 
     private void init() {
         paint = new Paint();
-        paint.setColor(Color.RED);
-        path = new Path();
-        cacheCanvas = new Canvas();
-        prevPos = new Point(0, 0);
+        paint.setAntiAlias(true);
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeWidth(3.0F);
+
+        lastX = -1;
+        lastY = -1;
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        cacheBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        cacheCanvas.setBitmap(cacheBitmap);
+        Bitmap img = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(img);
+        canvas.drawColor(Color.WHITE);
+
+        this.bitmap = img;
+        this.canvas = canvas;
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        if (bitmap != null) {
+            canvas.drawBitmap(bitmap, 0, 0, null);
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                path.moveTo(event.getX(), event.getY());
-                prevPos.x = (int)event.getX();
-                prevPos.y = (int)event.getY();
-                cacheCanvas.drawPath(path, paint);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                path.moveTo(prevPos.x, prevPos.y);
-                prevPos.x = (int)event.getX();
-                prevPos.y = (int)event.getY();
-                cacheCanvas.drawPath(path, paint);
-
-                path.lineTo(event.getX(), event.getY());
-                cacheCanvas.drawPath(path, paint);
-                break;
             case MotionEvent.ACTION_UP:
-                break;
-            default:
-                return false;
+                Rect rect = touchUp(event);
+                invalidate(rect);
+                path.rewind();
+                return true;
+
+            case MotionEvent.ACTION_DOWN:
+                rect = touchDown(event);
+                invalidate(rect);
+                return true;
+
+            case MotionEvent.ACTION_MOVE:
+                rect = touchMove(event);
+                invalidate(rect);
+                return true;
         }
 
-        invalidate();
-        return true;
+        return false;
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        if(cacheBitmap != null) {
-            canvas.drawBitmap(cacheBitmap, 0, 0, paint);
+    private Rect touchDown(MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
+
+        lastX = x;
+        lastY = y;
+
+        Rect invalidRect = new Rect();
+        path.moveTo(x, y);
+
+        final int border = invalidateExtraBorder;
+        invalidRect.set((int) x - border, (int) y - border, (int) x + border, (int) y + border);
+        curveEndX = x;
+        curveEndY = y;
+
+        canvas.drawPath(path, paint);
+
+        return invalidRect;
+    }
+
+    private Rect touchUp(MotionEvent event) {
+        return processMove(event);
+    }
+
+    private Rect touchMove(MotionEvent event) {
+        return processMove(event);
+    }
+
+    private Rect processMove(MotionEvent event) {
+        final float x = event.getX();
+        final float y = event.getY();
+
+        final float dx = Math.abs(x - lastX);
+        final float dy = Math.abs(y - lastY);
+
+        Rect invalidRect = new Rect();
+        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+            final int border = invalidateExtraBorder;
+            invalidRect.set((int) curveEndX - border, (int) curveEndY - border,
+                    (int) curveEndX + border, (int) curveEndY + border);
+
+            float cX = curveEndX = (x + lastX) / 2;
+            float cY = curveEndY = (y + lastY) / 2;
+
+            path.quadTo(lastX, lastY, cX, cY);
+
+            invalidRect.union((int) lastX - border, (int) lastY - border,
+                    (int) lastX + border, (int) lastY + border);
+
+            invalidRect.union((int) cX - border, (int) cY - border,
+                    (int) cX + border, (int) cY + border);
+
+            lastX = x;
+            lastY = y;
+
+            canvas.drawPath(path, paint);
         }
+
+        return invalidRect;
     }
 
 }
