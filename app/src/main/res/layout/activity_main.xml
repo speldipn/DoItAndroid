@@ -6,38 +6,4 @@
     android:orientation="vertical"
     android:padding="5dp">
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/radioSquare"
-            android:text="SQUARE"
-            android:checked="true"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-
-        <RadioButton
-            android:id="@+id/radioButt"
-            android:text="BUTT"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-
-        <RadioButton
-            android:id="@+id/radioRound"
-            android:text="ROUND"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </RadioGroup>
-    <com.tpmn.doitandroid.CustomViewCap
-        android:id="@+id/customViewCap"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
 </LinearLayout>
