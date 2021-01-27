@@ -15,28 +15,15 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MSG = "EXTRA_MSG";
 
-    RadioGroup radioGroup;
-    CustomViewCap customViewCap;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        CustomViewDrag customView = new CustomViewDrag(this);
+        setContentView(customView);
         setup();
     }
 
     private void setup() {
-        customViewCap = findViewById(R.id.customViewCap);
-        radioGroup = findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            switch (checkedId) {
-                case R.id.radioSquare: customViewCap.setCap(Paint.Cap.SQUARE); break;
-                case R.id.radioButt: customViewCap.setCap(Paint.Cap.BUTT); break;
-                case R.id.radioRound: customViewCap.setCap(Paint.Cap.ROUND); break;
-                default: break;
-            }
-        });
-
     }
 }
 
