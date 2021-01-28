@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         if (imgFile.exists()) {
             Bitmap convertedBitmap = convertBitmap(imgFile);
             cameraImageView.setImageBitmap(convertedBitmap);
-        } else ㅊ{
+        } else {
             Log.d(TAG, "imgFile not exists");
         }
     }
