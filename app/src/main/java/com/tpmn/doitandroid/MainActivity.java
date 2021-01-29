@@ -13,17 +13,24 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.pedro.library.AutoPermissions;
+import com.pedro.library.AutoPermissionsListener;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileReader;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AutoPermissionsListener {
 
     public static final String TAG = "speldipn";
     public static final String EXTRA_MSG = "EXTRA_MSG";
@@ -33,79 +40,44 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQ_PERMS = 1002;
 
     Button cameraButton;
-    ImageView cameraImageView;
-    File file;
-
-    private final String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    FrameLayout previewContainer;
+    SurfaceCutomView surfaceCustomView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setup();
-        checkPerms();
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK && requestCode == REQ_CAMERA) {
-            Log.d(TAG, "intent: " + data == null ? "null" : "not null");
-            loadImage();
-        }
+        AutoPermissions.Companion.loadAllPermissions(this, REQ_PERMS);
     }
 
     private void setup() {
         cameraButton = findViewById(R.id.cameraButton);
-        cameraImageView = findViewById(R.id.cameraImageView);
+        previewContainer = findViewById(R.id.previewContainer);
+
+        surfaceCustomView = new SurfaceCutomView(this);
+        previewContainer.addView(surfaceCustomView);
 
         cameraButton.setOnClickListener(v -> {
             takePicture();
         });
     }
 
-    private void loadImage() {
-        File imgFile = new File(Environment.getExternalStorageDirectory(), FILENAME);
-        if (imgFile.exists()) {
-            Bitmap convertedBitmap = convertBitmap(imgFile);
-            cameraImageView.setImageBitmap(convertedBitmap);
-        } else {
-            Log.d(TAG, "imgFile not exists");
-        }
-    }
-
-    private Bitmap convertBitmap(File imgFile) {
-        return BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-    }
-
-    private void checkPerms() {
-        requestPermissions(permissions, REQ_PERMS);
-    }
-
     private void takePicture() {
-        if (file == null) {
-            file = createFile();
-        }
-
-        Uri uri = FileProvider.getUriForFile(this, "com.tpmn.doitandroid.fileprovider", file);
-        Log.d("speldipn", "Capture, new file path = " + uri);
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQ_CAMERA);
-        }
     }
 
-    private Bitmap rotateImage(Bitmap bitmap, int angle) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
-
+    @Override
+    public void onDenied(int i, @NotNull String[] permissions) {
+        Toast.makeText(this, "Permission denied: " + permissions.length, Toast.LENGTH_SHORT)
+                .show();
     }
 
-    private File createFile() {
-        return new File(Environment.getExternalStorageDirectory(), FILENAME);
+    @Override
+    public void onGranted(int i, @NotNull String[] permissions) {
+        Toast.makeText(this, "Permission granted: " + permissions.length, Toast.LENGTH_SHORT)
+                .show();
+
     }
 }
 
