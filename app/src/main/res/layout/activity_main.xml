@@ -6,31 +6,4 @@
     android:orientation="vertical"
     android:padding="5dp">
 
-    <Button
-        android:id="@+id/playButton"
-        android:layout_width="match_parent"
-        android:text="Play"
-        android:textAllCaps="false"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/stopButton"
-        android:layout_width="match_parent"
-        android:text="Stop"
-        android:textAllCaps="false"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/pauseButton"
-        android:layout_width="match_parent"
-        android:text="Pause"
-        android:textAllCaps="false"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/resumeButton"
-        android:layout_width="match_parent"
-        android:text="Replay"
-        android:textAllCaps="false"
-        android:layout_height="wrap_content"/>
 </LinearLayout>
