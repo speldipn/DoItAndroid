@@ -17,11 +17,6 @@ public class MainActivity extends YouTubeBaseActivity {
     public static final String TAG = "speldipn";
     public static final String EXTRA_MSG = "EXTRA_MSG";
 
-    private static String API_KEY = "AIzaSyDWXmWuB7xjPaN5gwW2hlNtHr9nETESN7E";
-    private static String videoId = "FbNi4tXfC6w";
-
-    YouTubePlayer player;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,55 +25,6 @@ public class MainActivity extends YouTubeBaseActivity {
     }
 
     private void setup() {
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(v -> {
-            playVideo();
-        });
-
-        YouTubePlayerView playerView = findViewById(R.id.playerView);
-        playerView.initialize(API_KEY, new YouTubePlayer.OnInitializedListener() {
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                player = youTubePlayer;
-                player.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
-                    @Override
-                    public void onLoading() { }
-
-                    @Override
-                    public void onLoaded(String s) {
-                        Log.d(TAG, "onLoaded()");
-                        player.play();
-                    }
-
-                    @Override
-                    public void onAdStarted() { }
-
-                    @Override
-                    public void onVideoStarted() { }
-
-                    @Override
-                    public void onVideoEnded() { }
-
-                    @Override
-                    public void onError(YouTubePlayer.ErrorReason errorReason) { }
-                });
-            }
-
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-            }
-        });
-    }
-
-    private void playVideo() {
-        if(player != null) {
-            if(player.isPlaying()) {
-                player.pause();
-            }
-
-            player.cueVideo(videoId);
-        }
     }
 
     private void showToast(String msg) {

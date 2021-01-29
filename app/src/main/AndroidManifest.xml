@@ -57,7 +57,7 @@
             android:name=".MenuActivity"
             android:label="메뉴 Activity" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".SampleYoutubeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
