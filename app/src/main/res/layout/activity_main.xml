@@ -7,14 +7,16 @@
     android:padding="5dp">
 
     <Button
-        android:id="@+id/playButton"
+        android:id="@+id/startRecordButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Play" />
+        android:text="Start recording"
+        android:textAllCaps="false" />
 
-    <VideoView
-        android:id="@+id/videoView"
+    <Button
+        android:id="@+id/stopRecordButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:text="Stop recording"
+        android:textAllCaps="false" />
 </LinearLayout>
