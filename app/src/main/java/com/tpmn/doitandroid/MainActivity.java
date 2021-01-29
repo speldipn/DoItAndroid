@@ -1,53 +1,84 @@
 package com.tpmn.doitandroid;
 
-import android.content.ContentValues;
-import android.content.Intent;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.pedro.library.AutoPermissions;
-import com.pedro.library.AutoPermissionsListener;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 
-import org.jetbrains.annotations.NotNull;
-
-public class MainActivity extends AppCompatActivity implements AutoPermissionsListener {
+public class MainActivity extends YouTubeBaseActivity {
 
     public static final String TAG = "speldipn";
     public static final String EXTRA_MSG = "EXTRA_MSG";
-    public static final int REQ_PERMS = 100;
+
+    private static String API_KEY = "AIzaSyDWXmWuB7xjPaN5gwW2hlNtHr9nETESN7E";
+    private static String videoId = "FbNi4tXfC6w";
+
+    YouTubePlayer player;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setup();
-
-        AutoPermissions.Companion.loadAllPermissions(this, REQ_PERMS);
     }
 
     private void setup() {
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(v -> {
+            playVideo();
+        });
+
+        YouTubePlayerView playerView = findViewById(R.id.playerView);
+        playerView.initialize(API_KEY, new YouTubePlayer.OnInitializedListener() {
+            @Override
+            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                player = youTubePlayer;
+                player.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
+                    @Override
+                    public void onLoading() { }
+
+                    @Override
+                    public void onLoaded(String s) {
+                        Log.d(TAG, "onLoaded()");
+                        player.play();
+                    }
+
+                    @Override
+                    public void onAdStarted() { }
+
+                    @Override
+                    public void onVideoStarted() { }
+
+                    @Override
+                    public void onVideoEnded() { }
+
+                    @Override
+                    public void onError(YouTubePlayer.ErrorReason errorReason) { }
+                });
+            }
+
+            @Override
+            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+            }
+        });
     }
 
-    @Override
-    public void onDenied(int i, @NotNull String[] permissions) {
-        showToast("permissions denied");
-    }
+    private void playVideo() {
+        if(player != null) {
+            if(player.isPlaying()) {
+                player.pause();
+            }
 
-    @Override
-    public void onGranted(int i, @NotNull String[] permissions) {
-        showToast("permissions granted");
+            player.cueVideo(videoId);
+        }
     }
 
     private void showToast(String msg) {
