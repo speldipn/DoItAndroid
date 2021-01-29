@@ -6,12 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -30,8 +32,9 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.FileReader;
 
-public class MainActivity extends AppCompatActivity implements AutoPermissionsListener {
+public class MainActivity extends AppCompatActivity implements AutoPermissionsListener, MediaPlayer.OnCompletionListener {
 
+    public static final String AUDIO_URL = "http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3";
     public static final String TAG = "speldipn";
     public static final String EXTRA_MSG = "EXTRA_MSG";
     public static final String FILENAME = "capture.jpg";
@@ -39,9 +42,13 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     public static final int REQ_CAMERA = 1001;
     public static final int REQ_PERMS = 1002;
 
-    Button cameraButton;
-    FrameLayout previewContainer;
-    SurfaceCutomView surfaceCustomView;
+    Button playButton;
+    Button stopButton;
+    Button pauseButton;
+    Button resumeButton;
+
+    SampleAudioPlayer player;
+    int position = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,20 +59,57 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         AutoPermissions.Companion.loadAllPermissions(this, REQ_PERMS);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        player.release();
+    }
+
     private void setup() {
-        cameraButton = findViewById(R.id.cameraButton);
-        previewContainer = findViewById(R.id.previewContainer);
+        playButton = findViewById(R.id.playButton);
+        playButton.setOnClickListener(onStartClickListener);
 
-        surfaceCustomView = new SurfaceCutomView(this);
-        previewContainer.addView(surfaceCustomView);
+        stopButton = findViewById(R.id.stopButton);
+        stopButton.setOnClickListener(onStopClickListener);
 
-        cameraButton.setOnClickListener(v -> {
-            takePicture();
-        });
+        pauseButton = findViewById(R.id.pauseButton);
+        pauseButton.setOnClickListener(onPauseClickListener);
+
+        resumeButton = findViewById(R.id.resumeButton);
+        resumeButton.setOnClickListener(onResumeClickListener);
+
+        player = new SampleAudioPlayer();
     }
 
-    private void takePicture() {
-    }
+    View.OnClickListener onStartClickListener = v -> {
+        Toast.makeText(this, "Play music", Toast.LENGTH_SHORT).show();
+        player = new SampleAudioPlayer();
+        player.start(AUDIO_URL);
+        player.setCompleteListener(this);
+    };
+
+    View.OnClickListener onStopClickListener = v -> {
+        if(player != null) {
+            player.stop();
+            Toast.makeText(this, "Stop music", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    View.OnClickListener onPauseClickListener = v -> {
+        if(player != null) {
+            position = player.getCurrentPosition();
+            player.pause();
+            Toast.makeText(this, "Pause music", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    View.OnClickListener onResumeClickListener = v -> {
+        if(player != null && !player.isPlaying()) {
+            player.resume();
+            player.seekTo(position);
+            Toast.makeText(this, "Resume music", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public void onDenied(int i, @NotNull String[] permissions) {
@@ -78,6 +122,12 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         Toast.makeText(this, "Permission granted: " + permissions.length, Toast.LENGTH_SHORT)
                 .show();
 
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        player.release();
+        Toast.makeText(this, "Player completion", Toast.LENGTH_SHORT).show();
     }
 }
 
