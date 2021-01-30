@@ -46,59 +46,10 @@ public class MainActivity extends YouTubeBaseActivity implements AutoPermissions
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == 101) {
-            getAlbumFromStorage();
         }
     }
 
     private void setup() {
-        recyclerView = findViewById(R.id.recyclerView);
-        adapter = new MyAlbumAdapter();
-        recyclerView.setAdapter(adapter);
-        resolver = getContentResolver();
-        if(checkPermission()) {
-            getAlbumFromStorage();
-        } else {
-            showToast("permission denied");
-        }
-    }
-
-    private boolean checkPermission() {
-        String[] permissions = {
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        };
-        if (checkSelfPermission(permissions[0]) == PackageManager.PERMISSION_GRANTED &&
-                checkSelfPermission(permissions[1]) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        return false;
-    }
-
-    private List<AlbumModel> list = new ArrayList<>();
-
-    private void getAlbumFromStorage() {
-        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        Log.d(TAG, "image uri: " + uri);
-        String[] projects = {
-                MediaStore.Images.Media._ID,
-                MediaStore.Images.Media.DATA,
-                MediaStore.Images.Media.DISPLAY_NAME,
-                MediaStore.Images.Media.DATE_TAKEN,
-        };
-        String order = projects[2] + " DESC";
-        Cursor cursor = resolver.query(uri, projects, null, null, order);
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                AlbumModel model = new AlbumModel();
-                model.thumbUri = Uri.parse(cursor.getString(cursor.getColumnIndex(projects[1])));
-                model.name = cursor.getString(cursor.getColumnIndex(projects[2]));
-                model.time = cursor.getLong(cursor.getColumnIndex(projects[3]));
-                list.add(model);
-            } while (cursor.moveToNext());
-            cursor.close();
-
-            adapter.setData(list);
-        }
     }
 
     private void showToast(String msg) {
