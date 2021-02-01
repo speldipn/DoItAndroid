@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.SurfaceHolder;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -41,6 +44,13 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        AutoPermissions.Companion.parsePermissions(this, requestCode, permissions, this);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -52,20 +62,29 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         cameraButton = findViewById(R.id.cameraButton);
         previewContainer = findViewById(R.id.previewContainer);
 
-
         cameraView = new CameraCustomView(this);
-        holder = cameraView.getHolder();
-                cameraView.capture(new Camera.PictureCallback() {
-            @Override
-            public void onPictureTaken(byte[] data, Camera camera) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                try {
-                    camera.setPreviewDisplay(holder);
-                } catch (IOException exception) {
-                    exception.printStackTrace();
+        previewContainer.addView(cameraView);
+
+        cameraButton.setOnClickListener(v -> {
+            cameraView.capture(new Camera.PictureCallback() {
+                @Override
+                public void onPictureTaken(byte[] data, Camera camera) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    String outFile = MediaStore.Images.Media.insertImage(
+                            getContentResolver(),
+                            bitmap,
+                            "Captured image",
+                            "Captured image description"
+                    );
+
+                    Uri outputUri = Uri.parse(outFile);
+                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, outputUri));
+
+                    camera.startPreview();
                 }
-            }
+            });
         });
+
     }
 
     private void showToast(String msg) {
@@ -73,10 +92,12 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     }
 
     @Override
-    public void onDenied(int i, @NotNull String[] strings) {
+    public void onDenied(int i, @NotNull String[] permissions) {
+        showToast("Permissions denied: "  + permissions.length);
     }
 
     @Override
-    public void onGranted(int i, @NotNull String[] strings) {
+    public void onGranted(int i, @NotNull String[] permissions) {
+        showToast("Permissions granted: "  + permissions.length);
     }
 }

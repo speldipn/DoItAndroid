@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
-        android:name="android.hardware.Camera"
+        android:name="android.hardware.camera2"
         android:required="true" />
 
     <application
@@ -65,7 +65,7 @@
             android:name=".MenuActivity"
             android:label="메뉴 Activity" />
 
-<!--        <activity android:name=".SampleYoutubeActivity" />-->
+        <!--        <activity android:name=".SampleYoutubeActivity" />-->
     </application>
 
 </manifest>
