@@ -3,6 +3,7 @@ package com.tpmn.doitandroid;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -83,8 +84,17 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         builder.setContentTitle("Simple Alarm");
         builder.setContentText("Alarm message");
         builder.setSmallIcon(android.R.drawable.ic_menu_view);
-        Notification noti = builder.build();
 
+        Intent intent = new Intent(this, InputActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this,
+                101,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+        builder.setContentIntent(pendingIntent);
+
+        Notification noti = builder.build();
         manager.notify(1, noti);
     }
 
