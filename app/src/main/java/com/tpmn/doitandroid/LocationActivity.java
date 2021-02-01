@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -59,8 +60,8 @@ public class LocationActivity extends AppCompatActivity implements AutoPermissio
 
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         try {
-//            Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            Location location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//            Location location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if(location != null) {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
@@ -68,7 +69,13 @@ public class LocationActivity extends AppCompatActivity implements AutoPermissio
                 new Handler(Looper.getMainLooper()).post(() -> {
                     textView.append(msg + "\n\n");
                 });
-                showToast("Set location!");
+
+                GPSListener gpsListener = new GPSListener();
+                long minTime = 10000;
+                float minDistance = 0;
+
+                manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
+                showToast("내 위치확인 요청함");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,4 +95,16 @@ public class LocationActivity extends AppCompatActivity implements AutoPermissio
     public void onGranted(int i, @NotNull String[] permissions) {
         showToast("Permissions granted: " + permissions.length);
     }
+
+    class GPSListener implements LocationListener {
+
+        @Override
+        public void onLocationChanged(@NonNull Location location) {
+            Double latitude = location.getLatitude();
+            Double longitude = location.getLongitude();
+            String msg = "Latitude: " + latitude + "\nLongitude: " + longitude;
+            textView.setText(msg + "\n\n");
+        }
+    }
 }
+
