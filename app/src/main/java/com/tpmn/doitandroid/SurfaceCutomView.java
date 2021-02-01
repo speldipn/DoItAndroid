@@ -25,6 +25,7 @@ public class SurfaceCutomView extends SurfaceView implements SurfaceHolder.Callb
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder _holder) {
         camera = Camera.open();
+        setCameraOrientation();
 
         try {
             camera.setPreviewDisplay(holder);
