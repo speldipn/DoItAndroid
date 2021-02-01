@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         }
         builder.setContentTitle("Simple Alarm");
         builder.setContentText("Alarm message");
+        builder.setAutoCancel(true);
         builder.setSmallIcon(android.R.drawable.ic_menu_view);
 
         Intent intent = new Intent(this, InputActivity.class);
