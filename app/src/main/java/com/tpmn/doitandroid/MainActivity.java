@@ -28,11 +28,6 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     public static final String TAG = "speldipn";
     public static final String EXTRA_MSG = "EXTRA_MSG";
 
-    Button cameraButton;
-    FrameLayout previewContainer;
-
-    CameraCustomView cameraView;
-    SurfaceHolder holder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,41 +45,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         AutoPermissions.Companion.parsePermissions(this, requestCode, permissions, this);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK && requestCode == 101) {
-        }
-    }
-
     private void setup() {
-        cameraButton = findViewById(R.id.cameraButton);
-        previewContainer = findViewById(R.id.previewContainer);
-
-        cameraView = new CameraCustomView(this);
-        previewContainer.addView(cameraView);
-
-        cameraButton.setOnClickListener(v -> {
-            cameraView.capture(new Camera.PictureCallback() {
-                @Override
-                public void onPictureTaken(byte[] data, Camera camera) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    String outFile = MediaStore.Images.Media.insertImage(
-                            getContentResolver(),
-                            bitmap,
-                            "Captured image",
-                            "Captured image description"
-                    );
-
-                    Uri outputUri = Uri.parse(outFile);
-                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, outputUri));
-
-                    camera.startPreview();
-                }
-            });
-        });
-
     }
 
 
