@@ -40,12 +40,12 @@ public class MyService extends Service {
     }
 
     private void processCommand(Intent intent) {
-        String msg = intent.getStringExtra(SampleYoutubeActivity.EXTRA_MSG);
-        if(!msg.isEmpty()) {
-            Intent intent1 = new Intent("doitandroid");
-            intent1.putExtra(SampleYoutubeActivity.EXTRA_MSG, msg);
-            sendBroadcast(intent1);
-            Log.d("speldipn", "Service to Broadcast");
-        }
+////        String msg = intent.getStringExtra(SampleYoutubeActivity.EXTRA_MSG);
+////        if(!msg.isEmpty()) {
+////            Intent intent1 = new Intent("doitandroid");
+////            intent1.putExtra(SampleYoutubeActivity.EXTRA_MSG, msg);
+////            sendBroadcast(intent1);
+////            Log.d("speldipn", "Service to Broadcast");
+////        }
     }
 }

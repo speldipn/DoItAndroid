@@ -65,7 +65,7 @@
             android:name=".MenuActivity"
             android:label="메뉴 Activity" />
 
-        <activity android:name=".SampleYoutubeActivity" />
+<!--        <activity android:name=".SampleYoutubeActivity" />-->
     </application>
 
 </manifest>

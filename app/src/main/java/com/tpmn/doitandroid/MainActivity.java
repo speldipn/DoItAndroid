@@ -1,6 +1,5 @@
 package com.tpmn.doitandroid;
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,9 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 
@@ -22,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-public class MainActivity extends YouTubeBaseActivity implements AutoPermissionsListener {
+public class MainActivity extends AppCompatActivity implements AutoPermissionsListener {
 
     public static final String TAG = "speldipn";
     public static final String EXTRA_MSG = "EXTRA_MSG";
