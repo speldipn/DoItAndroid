@@ -59,7 +59,8 @@ public class LocationActivity extends AppCompatActivity implements AutoPermissio
 
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         try {
-            Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//            Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if(location != null) {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
