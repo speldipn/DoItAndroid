@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
 
     }
 
+
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
