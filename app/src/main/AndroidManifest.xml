@@ -25,6 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeCustom"
         android:usesCleartextTraffic="true">
+        <service
+            android:name=".MyFirebasemessagingService"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -54,29 +58,21 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".SamplePushActivity" >
+        <activity android:name=".SamplePushActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".AlarmActivity" />
-
         <activity android:name=".SampleMapActivity" />
-
         <activity android:name=".LocationActivity" />
-
         <activity android:name=".DrawerActivity" />
-
         <activity android:name=".InputActivity" />
-
         <activity android:name=".SmsActivity" />
-
         <activity android:name=".CameraActivity" />
-
         <activity android:name=".MainActivity" />
-
         <activity
             android:name=".MenuActivity"
             android:label="메뉴 Activity" />
