@@ -25,10 +25,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeCustom"
         android:usesCleartextTraffic="true">
+
         <service
-            android:name=".MyFirebasemessagingService"
+            android:name=".MyFirebaseMessagingService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVNET" />
+            </intent-filter>
+
+        </service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
