@@ -25,6 +25,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeCustom"
         android:usesCleartextTraffic="true">
+        <activity android:name=".PracticeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".MyFirebaseMessagingService"
@@ -34,7 +41,6 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVNET" />
             </intent-filter>
-
         </service>
 
         <meta-data
@@ -65,13 +71,7 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".SamplePushActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".SamplePushActivity" />
         <activity android:name=".AlarmActivity" />
         <activity android:name=".SampleMapActivity" />
         <activity android:name=".LocationActivity" />
