@@ -54,10 +54,14 @@ public class OneFragment extends Fragment {
     private class CustomPagerAdapter extends PagerAdapter {
         private final List<Drawable> list;
 
-        public CustomPagerAdapter(List<Drawable> list) { this.list = list; }
+        public CustomPagerAdapter(List<Drawable> list) {
+            this.list = list;
+        }
 
         @Override
-        public int getCount() { return list.size(); }
+        public int getCount() {
+            return list.size();
+        }
 
         @NonNull
         @Override
@@ -71,13 +75,16 @@ public class OneFragment extends Fragment {
 
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-            container.removeView((View)object);
+            container.removeView((View) object);
         }
 
         @Override
         public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
             return view == object;
         }
+    }
 
+    public static Fragment newInstance() {
+        return new OneFragment();
     }
 }

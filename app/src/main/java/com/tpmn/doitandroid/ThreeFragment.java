@@ -19,4 +19,8 @@ public class ThreeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_three, container, false);
     }
+
+    public static Fragment newInstance() {
+        return new ThreeFragment();
+    }
 }

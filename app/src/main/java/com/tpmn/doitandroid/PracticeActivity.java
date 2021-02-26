@@ -1,25 +1,33 @@
 package com.tpmn.doitandroid;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.google.android.gms.dynamic.SupportFragmentWrapper;
+import com.tpmn.doitandroid.OneFragment;
 
 public class PracticeActivity extends AppCompatActivity {
 
     public static final String TAG = "spdn";
+
+    private FragmentContainerView container;
+    private Button oneButton, twoButton, threeButton;
+    private List<Fragment> fragments = new ArrayList<>();
+    ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,27 +37,60 @@ public class PracticeActivity extends AppCompatActivity {
     }
 
     private void setup() {
-        Spinner spinner = findViewById(R.id.spinner);
-        ArrayList<String> data = new ArrayList();
-        data.add("선택하세요");
-        data.add("1월");
-        data.add("2월");
-        data.add("3월");
-        data.add("4월");
-        SpinnerAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), data.get(position), Toast.LENGTH_SHORT).show();
+        oneButton = findViewById(R.id.oneButton);
+        twoButton = findViewById(R.id.twoButton);
+        threeButton = findViewById(R.id.threeButton);
+
+        fragments.add(OneFragment.newInstance());
+        fragments.add(TwoFragment.newInstance());
+        fragments.add(ThreeFragment.newInstance());
+
+        View.OnClickListener clickListener = v -> {
+            switch (v.getId()) {
+                case R.id.oneButton:
+                    selectFragment(0);
+                    break;
+                case R.id.twoButton:
+                    selectFragment(1);
+                    break;
+                case R.id.threeButton:
+                    selectFragment(2);
+                    break;
             }
+        };
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        oneButton.setOnClickListener(clickListener);
+        twoButton.setOnClickListener(clickListener);
+        threeButton.setOnClickListener(clickListener);
 
-            }
-        });
+        pager = findViewById(R.id.pager);
 
+        CustomFragmentAdapter customAdapter = new CustomFragmentAdapter(getSupportFragmentManager(), fragments);
+        pager.setAdapter(customAdapter);
     }
 
+    private void selectFragment(int index) {
+        Toast.makeText(this, index + " selected", Toast.LENGTH_SHORT).show();
+        pager.setCurrentItem(index);
+    }
+
+    private class CustomFragmentAdapter extends FragmentStatePagerAdapter {
+        private final List<Fragment> fragments;
+
+        public CustomFragmentAdapter(@NonNull FragmentManager fm, List<Fragment> list) {
+            super(fm);
+            fragments = list;
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+    }
 }
