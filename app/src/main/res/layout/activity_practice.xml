@@ -6,26 +6,9 @@
     android:orientation="vertical"
     tools:context=".PracticeActivity">
 
-    <Button
-        android:id="@+id/startButton"
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="start"
-        android:textAllCaps="false"
-        android:textSize="20sp" />
-
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textColor="@color/white"
-        android:textSize="40sp" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
