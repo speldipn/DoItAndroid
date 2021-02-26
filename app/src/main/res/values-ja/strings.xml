@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DoItAndroid</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="slding_info_format">고객정보 %1$d/%2$d</string>
+    <string name="test_string">테스트 스트링입니다</string>
+    <string name="sample_fragment">Sample Fragment</string>
+</resources>
