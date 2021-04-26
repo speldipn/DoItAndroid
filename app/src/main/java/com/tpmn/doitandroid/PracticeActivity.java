@@ -10,6 +10,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,7 +26,7 @@ import com.tpmn.doitandroid.OneFragment;
 
 public class PracticeActivity extends AppCompatActivity {
 
-    public static final String TAG = "spdn";
+    public static final String TAG = "speldipn";
 
     private FragmentContainerView container;
     private Button oneButton, twoButton, threeButton;
@@ -34,6 +38,7 @@ public class PracticeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice);
         setup();
+        Log.d(TAG, "onCreate called by PracticeActivity");
     }
 
     private void setup() {
@@ -72,6 +77,16 @@ public class PracticeActivity extends AppCompatActivity {
     private void selectFragment(int index) {
         Toast.makeText(this, index + " selected", Toast.LENGTH_SHORT).show();
         pager.setCurrentItem(index);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
     }
 
     private class CustomFragmentAdapter extends FragmentStatePagerAdapter {

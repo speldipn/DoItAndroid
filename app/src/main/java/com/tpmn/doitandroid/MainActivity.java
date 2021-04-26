@@ -47,25 +47,23 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setup();
-
         AutoPermissions.Companion.loadAllPermissions(this, 101);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         AutoPermissions.Companion.parsePermissions(this, requestCode, permissions, this);
     }
 
     private void setup() {
         alarmButton = findViewById(R.id.alarmButton);
         alarmButton.setOnClickListener(v -> {
-            showNoti1();
+            showNotification();
         });
     }
 
-    private void showNoti1() {
+    private void showNotification() {
         manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = null;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

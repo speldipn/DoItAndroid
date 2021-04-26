@@ -1,5 +1,6 @@
 package com.tpmn.doitandroid;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,17 +32,38 @@ public class OneFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.d(PracticeActivity.TAG, "onAttach called by OneFragment");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(PracticeActivity.TAG, "onCreate called by OneFragment");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.d(PracticeActivity.TAG, "onCreateView called by OneFragment");
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         viewPager = view.findViewById(R.id.viewPager);
         return view;
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d(PracticeActivity.TAG, "onViewCreated called by OneFragment");
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.d(PracticeActivity.TAG, "onActivityCreated called by OneFragment");
+
         List<Drawable> list = new ArrayList<>();
         list.add(ContextCompat.getDrawable(getContext(), R.drawable.menu_refresh));
         list.add(ContextCompat.getDrawable(getContext(), R.drawable.menu_search));
