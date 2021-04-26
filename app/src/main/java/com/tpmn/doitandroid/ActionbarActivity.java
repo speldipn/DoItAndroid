@@ -1,10 +1,17 @@
 package com.tpmn.doitandroid;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import static android.app.ActionBar.DISPLAY_SHOW_HOME;
+import static android.app.ActionBar.DISPLAY_USE_LOGO;
+import static androidx.appcompat.app.ActionBar.*;
 
 public class ActionbarActivity extends AppCompatActivity {
 
@@ -13,6 +20,7 @@ public class ActionbarActivity extends AppCompatActivity {
     Button newPageButton;
     Button showSubtitleButton;
     Button hideSubtitleButton;
+    Button showLogoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +29,7 @@ public class ActionbarActivity extends AppCompatActivity {
         setup();
     }
 
+    @SuppressLint("WrongConstant")
     private void setup() {
         showButton = findViewById(R.id.showButton);
         showButton.setOnClickListener(v -> {
@@ -40,6 +49,14 @@ public class ActionbarActivity extends AppCompatActivity {
 
         hideSubtitleButton = findViewById(R.id.hideSubtitleButton);
         hideSubtitleButton.setOnClickListener(v -> getSupportActionBar().setSubtitle(""));
+
+        showLogoButton = findViewById(R.id.showLogoButton);
+        showLogoButton.setOnClickListener(v -> {
+                    getSupportActionBar().setLogo(R.drawable.home);
+//                    getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
+                    getSupportActionBar().setDisplayOptions(DISPLAY_SHOW_HOME | DISPLAY_USE_LOGO | DISPLAY_SHOW_TITLE  | DISPLAY_HOME_AS_UP);
+                }
+        );
     }
 
 }

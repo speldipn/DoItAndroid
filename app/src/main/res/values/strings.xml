@@ -20,4 +20,5 @@
     <string name="newPage">New</string>
     <string name="show_subtitle">Show subtitle</string>
     <string name="hide_subtitle">Hide subtitle</string>
+    <string name="show_logo">Show logo</string>
 </resources>
