@@ -31,7 +31,6 @@ public class ActionbarActivity extends AppCompatActivity {
 
         hideButton = findViewById(R.id.hideButton);
         hideButton.setOnClickListener(v -> getSupportActionBar().hide());
-        hideButton.setOnClickListener(v -> getSupportActionBar().hide());
 
         newPageButton = findViewById(R.id.newPageButton);
         newPageButton.setOnClickListener(v -> startActivity(new Intent(this, AlarmActivity.class)));
