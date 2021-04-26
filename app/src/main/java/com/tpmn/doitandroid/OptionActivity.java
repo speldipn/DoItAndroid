@@ -38,15 +38,9 @@ public class OptionActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         String msg = "";
         switch (item.getItemId()) {
-            case R.id.one:
-                msg = getString(R.string.one);
-                break;
-            case R.id.two:
-                msg = getString(R.string.two);
-                break;
-            case R.id.three:
-                msg = getString(R.string.three);
-                break;
+            case R.id.one: msg = getString(R.string.one); break;
+            case R.id.two: msg = getString(R.string.two); break;
+            case R.id.three: msg = getString(R.string.three); break;
             default:
         }
         if (!TextUtils.isEmpty(msg)) {
@@ -66,22 +60,14 @@ public class OptionActivity extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         String msg = "";
         switch (item.getItemId()) {
-            case R.id.first:
-                msg = getString(R.string.first);
-                break;
-            case R.id.second:
-                msg = getString(R.string.second);
-                break;
-            case R.id.third:
-                msg = getString(R.string.third);
-                break;
+            case R.id.first: msg = getString(R.string.first); break;
+            case R.id.second: msg = getString(R.string.second); break;
+            case R.id.third: msg = getString(R.string.third); break;
             default:
         }
-
         if (!TextUtils.isEmpty(msg)) {
             Snackbar.make(mainView, msg, Snackbar.LENGTH_SHORT).show();
         }
-
         return super.onContextItemSelected(item);
     }
 }
