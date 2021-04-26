@@ -15,4 +15,9 @@
     <string name="first">first</string>
     <string name="second">second</string>
     <string name="third">third</string>
+    <string name="show">Show</string>
+    <string name="hide">Hide</string>
+    <string name="newPage">New</string>
+    <string name="show_subtitle">Show subtitle</string>
+    <string name="hide_subtitle">Hide subtitle</string>
 </resources>
