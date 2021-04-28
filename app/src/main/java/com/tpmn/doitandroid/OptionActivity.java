@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +33,19 @@ public class OptionActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.option_menu, menu);
+
+        View view = menu.findItem(R.id.menu_search).getActionView();
+        if(view != null) {
+            EditText editText = view.findViewById(R.id.editText);
+            if(editText != null) {
+                editText.setOnEditorActionListener((v, actionId, event) -> {
+                    Toast.makeText(getApplicationContext(), "입력됨", Toast.LENGTH_SHORT).show();
+                    return true;
+                });
+            }
+        }
+
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -39,8 +55,8 @@ public class OptionActivity extends AppCompatActivity {
         String msg = "";
         switch (item.getItemId()) {
             case R.id.one: msg = getString(R.string.one); break;
-            case R.id.two: msg = getString(R.string.two); break;
-            case R.id.three: msg = getString(R.string.three); break;
+//            case R.id.two: msg = getString(R.string.two); break;
+//            case R.id.three: msg = getString(R.string.three); break;
             default:
         }
         if (!TextUtils.isEmpty(msg)) {

@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/one" android:title="@string/one" app:showAsAction="ifRoom"/>
-    <item android:id="@+id/two" android:title="@string/two" app:showAsAction="ifRoom"/>
-    <item android:id="@+id/three" android:title="@string/three" app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/one"
+        android:title="@string/one"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_search"
+        android:actionLayout="@layout/search_layout"
+        android:orderInCategory="102"
+        android:title="@string/search"
+        app:showAsAction="always|withText" />
 </menu>
