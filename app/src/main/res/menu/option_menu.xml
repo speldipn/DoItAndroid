@@ -7,7 +7,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_search"
-        android:actionLayout="@layout/search_layout"
+        app:actionLayout="@layout/search_layout"
         android:orderInCategory="102"
         android:title="@string/search"
         app:showAsAction="always|withText" />

@@ -39,14 +39,13 @@ public class OptionActivity extends AppCompatActivity {
             EditText editText = view.findViewById(R.id.editText);
             if(editText != null) {
                 editText.setOnEditorActionListener((v, actionId, event) -> {
-                    Toast.makeText(getApplicationContext(), "입력됨", Toast.LENGTH_SHORT).show();
+                    String msg = editText.getText().toString() + " 입력됨";
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                     return true;
                 });
             }
         }
-
-
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @SuppressLint("NonConstantResourceId")
