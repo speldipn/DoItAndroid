@@ -60,9 +60,15 @@ public class DrawerActivity extends AppCompatActivity implements TabLayout.OnTab
     public void onTabSelected(TabLayout.Tab tab) {
         Fragment nextFragment = null;
         switch (tab.getPosition()) {
-            case 0: nextFragment = oneFragment; break;
-            case 1: nextFragment = twoFragment; break;
-            case 2: nextFragment = threeFragment; break;
+            case 0:
+                nextFragment = oneFragment;
+                break;
+            case 1:
+                nextFragment = twoFragment;
+                break;
+            case 2:
+                nextFragment = threeFragment;
+                break;
         }
         if (nextFragment != null) {
             getSupportFragmentManager()
@@ -84,9 +90,15 @@ public class DrawerActivity extends AppCompatActivity implements TabLayout.OnTab
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         String selectedItemName = "";
         switch (item.getItemId()) {
-            case R.id.menu_search: selectedItemName = "Search"; break;
-            case R.id.menu_settings: selectedItemName = "Settings"; break;
-            case R.id.menu_refresh: selectedItemName = "Refresh"; break;
+            case R.id.menu_search:
+                selectedItemName = "Search";
+                break;
+            case R.id.menu_settings:
+                selectedItemName = "Settings";
+                break;
+            case R.id.menu_refresh:
+                selectedItemName = "Refresh";
+                break;
         }
         Toast.makeText(this, selectedItemName, Toast.LENGTH_SHORT).show();
         return true;

@@ -15,39 +15,28 @@ import androidx.annotation.Nullable;
 public class ImageDisplayView extends View implements View.OnTouchListener {
 
     public static String TAG = "ImageDisplayView";
-
+    public static float MAX_SCALE_RATIO = 5.0F;
+    public static float MIN_SCALE_RATIO = 0.1F;
+    public float startX;
+    public float startY;
     Context context;
     Canvas canvas;
     Bitmap bitmap;
     Paint paint;
-
     int lastX;
     int lastY;
-
     Bitmap sourceBitmap;
     Matrix matrix;
-
     float sourceWidth = 0.0F;
     float sourceHeight = 0.0F;
-
     float bitmapCenterX;
     float bitmapCenterY;
-
     float scaleRatio;
     float totalScaleRatio;
-
     float displayWidth = 0.0F;
     float displayHeight = 0.0F;
-
     int displayCenterX;
     int displayCenterY;
-
-    public float startX;
-    public float startY;
-
-    public static float MAX_SCALE_RATIO = 5.0F;
-    public static float MIN_SCALE_RATIO = 0.1F;
-
     float oldDistance = 0.0F;
 
     int oldPointCount = 0;
@@ -98,20 +87,20 @@ public class ImageDisplayView extends View implements View.OnTouchListener {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                if(pointerCount == 1) {
+                if (pointerCount == 1) {
                     float curX = event.getX();
                     float curY = event.getY();
 
                     startX = curX;
                     startY = curY;
-                } else if(pointerCount == 2) {
-                   oldDistance = 0.0F;
-                   isScrolling = true;
+                } else if (pointerCount == 2) {
+                    oldDistance = 0.0F;
+                    isScrolling = true;
                 }
                 return true;
             case MotionEvent.ACTION_MOVE:
-                if(pointerCount == 1) {
-                    if(isScrolling) {
+                if (pointerCount == 1) {
+                    if (isScrolling) {
                         return true;
                     }
 
@@ -124,7 +113,7 @@ public class ImageDisplayView extends View implements View.OnTouchListener {
 
                         return true;
                     }
-                } else if(pointerCount == 2) {
+                } else if (pointerCount == 2) {
 
                 }
                 return true;

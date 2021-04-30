@@ -15,21 +15,16 @@ import androidx.annotation.Nullable;
 
 public class CustomViewDrawingImproved extends View {
 
+    static final float TOUCH_TOLERANCE = 8;
     Canvas canvas;
     Bitmap bitmap;
     Paint paint;
-
     float lastX;
     float lastY;
-
     Path path = new Path();
-
     float curveEndX;
     float curveEndY;
-
     int invalidateExtraBorder = 10;
-
-    static final float TOUCH_TOLERANCE = 8;
 
     public CustomViewDrawingImproved(Context context) {
         super(context);

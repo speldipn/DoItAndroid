@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -43,9 +42,9 @@ public class CustomViewImage extends View {
     }
 
     private void createCacheBitmap(int width, int height) {
-       cacheBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-       cacheCanvas = new Canvas();
-       cacheCanvas.setBitmap(cacheBitmap);
+        cacheBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        cacheCanvas = new Canvas();
+        cacheCanvas.setBitmap(cacheBitmap);
     }
 
     private void testDraw() {
@@ -79,7 +78,7 @@ public class CustomViewImage extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(cacheBitmap != null) {
+        if (cacheBitmap != null) {
             canvas.drawBitmap(cacheBitmap, 0, 0, null);
         }
     }

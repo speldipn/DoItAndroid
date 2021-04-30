@@ -50,7 +50,7 @@ public class CameraActivity extends AppCompatActivity implements AutoPermissions
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK && requestCode == REQ_CAMERA) {
+        if (resultCode == RESULT_OK && requestCode == REQ_CAMERA) {
             loadImage();
         }
 

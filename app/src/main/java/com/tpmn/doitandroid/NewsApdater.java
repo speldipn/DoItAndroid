@@ -36,8 +36,8 @@ public class NewsApdater extends RecyclerView.Adapter<ArticleViewHolder> {
     }
 
     public void setDataAndRefresh(List<NewsItemModel> news) {
-       this.list = news;
-       notifyDataSetChanged();
+        this.list = news;
+        notifyDataSetChanged();
     }
 }
 

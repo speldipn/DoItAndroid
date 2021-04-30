@@ -1,7 +1,6 @@
 package com.tpmn.doitandroid;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,9 +32,15 @@ public class Layout1 extends LinearLayout {
         descTextView = view.findViewById(R.id.descTextView);
     }
 
-    void setImageView(int redId) { imageView.setImageResource(redId); }
+    void setImageView(int redId) {
+        imageView.setImageResource(redId);
+    }
 
-    void setNameTextView(String name) { nameTextView.setText(name); }
+    void setNameTextView(String name) {
+        nameTextView.setText(name);
+    }
 
-    void setDescTextView(String desc) { descTextView.setText(desc); }
+    void setDescTextView(String desc) {
+        descTextView.setText(desc);
+    }
 }

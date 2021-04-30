@@ -1,23 +1,23 @@
 package com.tpmn.doitandroid;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayout;
 
 /**
  * <CoordinateLayout>
- *   <AppbarLayout>
- *     <Toolbar>
- *       <TextView /> : Toolbar title
- *     </Toolbar>
- *     <TabLayout/>
- *   </AppbarLayout>
- *   <FrameLayout/>
+ * <AppbarLayout>
+ * <Toolbar>
+ * <TextView /> : Toolbar title
+ * </Toolbar>
+ * <TabLayout/>
+ * </AppbarLayout>
+ * <FrameLayout/>
  * </CoordinateLayout>
  */
 
@@ -35,7 +35,7 @@ public class NaviActivity extends AppCompatActivity {
         setup();
     }
 
-    private void setup(){
+    private void setup() {
         toolBar = findViewById(R.id.toolBar);
         tabs = findViewById(R.id.tabs);
         container = findViewById(R.id.container);

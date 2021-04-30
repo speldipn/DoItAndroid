@@ -13,11 +13,10 @@ import androidx.annotation.Nullable;
 
 public class CustomView extends View {
 
+    Context context;
     private float posX;
     private float posY;
-
     private Paint paint;
-    Context context;
 
     public CustomView(Context context) {
         super(context);
@@ -45,7 +44,7 @@ public class CustomView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
             posX = event.getX();
             posY = event.getY();
             Toast.makeText(context, event.getX() + ", " + event.getY(), Toast.LENGTH_SHORT).show();

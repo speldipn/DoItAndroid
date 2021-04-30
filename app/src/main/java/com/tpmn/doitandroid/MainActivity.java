@@ -6,16 +6,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.hardware.Camera;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.SurfaceHolder;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,8 +20,6 @@ import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements AutoPermissionsListener {
 
@@ -66,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     private void showNotification() {
         manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = null;
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if(manager.getNotificationChannel(CHANNEL_NAME) == null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (manager.getNotificationChannel(CHANNEL_NAME) == null) {
                 NotificationChannel channel = new NotificationChannel(
                         CHANNEL_ID,
                         CHANNEL_NAME,
@@ -104,11 +95,11 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
 
     @Override
     public void onDenied(int i, @NotNull String[] permissions) {
-        showToast("Permissions denied: "  + permissions.length);
+        showToast("Permissions denied: " + permissions.length);
     }
 
     @Override
     public void onGranted(int i, @NotNull String[] permissions) {
-        showToast("Permissions granted: "  + permissions.length);
+        showToast("Permissions granted: " + permissions.length);
     }
 }

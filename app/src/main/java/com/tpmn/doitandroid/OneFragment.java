@@ -3,21 +3,18 @@ package com.tpmn.doitandroid;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +26,10 @@ public class OneFragment extends Fragment {
 
     public OneFragment() {
         // Required empty public constructor
+    }
+
+    public static Fragment newInstance() {
+        return new OneFragment();
     }
 
     @Override
@@ -105,9 +106,5 @@ public class OneFragment extends Fragment {
         public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
             return view == object;
         }
-    }
-
-    public static Fragment newInstance() {
-        return new OneFragment();
     }
 }

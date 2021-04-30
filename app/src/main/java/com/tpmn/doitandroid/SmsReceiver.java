@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.telephony.SmsMessage;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class SmsReceiver extends BroadcastReceiver {
 
@@ -57,6 +55,17 @@ public class SmsReceiver extends BroadcastReceiver {
 
 class CustomSMS implements Parcelable {
 
+    public static final Creator<CustomSMS> CREATOR = new Creator<CustomSMS>() {
+        @Override
+        public CustomSMS createFromParcel(Parcel in) {
+            return new CustomSMS(in);
+        }
+
+        @Override
+        public CustomSMS[] newArray(int size) {
+            return new CustomSMS[size];
+        }
+    };
     String phone;
     String message;
     String date;
@@ -84,17 +93,5 @@ class CustomSMS implements Parcelable {
         dest.writeString(message);
         dest.writeString(date);
     }
-
-    public static final Creator<CustomSMS> CREATOR = new Creator<CustomSMS>() {
-        @Override
-        public CustomSMS createFromParcel(Parcel in) {
-            return new CustomSMS(in);
-        }
-
-        @Override
-        public CustomSMS[] newArray(int size) {
-            return new CustomSMS[size];
-        }
-    };
 
 }

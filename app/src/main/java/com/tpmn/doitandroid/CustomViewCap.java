@@ -46,9 +46,11 @@ public class CustomViewCap extends View {
         float x = event.getX();
         float y = event.getY();
 
-        switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN: break;
-            case MotionEvent.ACTION_UP: break;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
             case MotionEvent.ACTION_MOVE:
                 cacheCanvas.drawPoint(x, y, paint);
                 break;
@@ -61,7 +63,7 @@ public class CustomViewCap extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if(cacheBitmap != null) {
+        if (cacheBitmap != null) {
             canvas.drawBitmap(cacheBitmap, 0, 0, paint);
         }
     }

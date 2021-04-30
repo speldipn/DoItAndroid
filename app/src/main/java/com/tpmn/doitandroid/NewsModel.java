@@ -7,13 +7,29 @@ public class NewsModel {
     private float totalResults;
     private List<NewsItemModel> articles;
 
-    public String getStatus() { return status; }
-    public float getTotalResults() { return totalResults; }
-    public List<NewsItemModel> getItems() { return articles; }
+    public String getStatus() {
+        return status;
+    }
 
-    public void setStatus(String status) { this.status = status; }
-    public void setTotalResults(float totalResults) { this.totalResults = totalResults; }
-    public void setItems(List<NewsItemModel> articles ) { this.articles = articles; }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public float getTotalResults() {
+        return totalResults;
+    }
+
+    public void setTotalResults(float totalResults) {
+        this.totalResults = totalResults;
+    }
+
+    public List<NewsItemModel> getItems() {
+        return articles;
+    }
+
+    public void setItems(List<NewsItemModel> articles) {
+        this.articles = articles;
+    }
 
     @Override
     public String toString() {
@@ -22,7 +38,7 @@ public class NewsModel {
                 "status='" + status + '\'' +
                 ", totalResults=" + totalResults +
                 '}');
-        for(int i = 0; i < articles.size(); ++i) {
+        for (int i = 0; i < articles.size(); ++i) {
             builder.append(articles.get(i).toString());
         }
 

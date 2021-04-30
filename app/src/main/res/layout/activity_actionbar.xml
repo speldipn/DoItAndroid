@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ActionbarActivity">
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  tools:context=".ActionbarActivity">
 
-    <Button
-        android:id="@+id/showButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/show"
-        android:textAllCaps="false"
-        android:textSize="30sp" />
+  <Button
+    android:id="@+id/showButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/show"
+    android:textAllCaps="false"
+    android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/hideButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hide"
-        android:textAllCaps="false"
-        android:textSize="30sp" />
+  <Button
+    android:id="@+id/hideButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/hide"
+    android:textAllCaps="false"
+    android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/newPageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/newPage"
-        android:textAllCaps="false"
-        android:textSize="30sp" />
+  <Button
+    android:id="@+id/newPageButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/newPage"
+    android:textAllCaps="false"
+    android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/showSubtitleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/show_subtitle"
-        android:textAllCaps="false"
-        android:textSize="30sp" />
+  <Button
+    android:id="@+id/showSubtitleButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/show_subtitle"
+    android:textAllCaps="false"
+    android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/hideSubtitleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hide_subtitle"
-        android:textAllCaps="false"
-        android:textSize="30sp" />
+  <Button
+    android:id="@+id/hideSubtitleButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/hide_subtitle"
+    android:textAllCaps="false"
+    android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/showLogoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/show_logo"
-        android:textAllCaps="false"
-        android:textSize="30sp" />
+  <Button
+    android:id="@+id/showLogoButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/show_logo"
+    android:textAllCaps="false"
+    android:textSize="30sp" />
 </LinearLayout>

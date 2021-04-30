@@ -1,9 +1,5 @@
 package com.tpmn.doitandroid;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -16,6 +12,9 @@ import android.os.Looper;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
@@ -62,7 +61,7 @@ public class LocationActivity extends AppCompatActivity implements AutoPermissio
         try {
             Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //            Location location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if(location != null) {
+            if (location != null) {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 String msg = String.format("Latitude: %.2f\nLongitude: %.2f", latitude, longitude);

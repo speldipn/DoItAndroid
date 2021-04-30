@@ -1,24 +1,18 @@
 package com.tpmn.doitandroid;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import java.util.Calendar;
-import java.util.Date;
 
 public class UserInfoFragment extends Fragment {
 
@@ -53,7 +47,7 @@ public class UserInfoFragment extends Fragment {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     getContext(),
                     (view1, year, month, dayOfMonth) -> {
-                        String currentDate = String.format("%d-%d-%d", year, month+1, dayOfMonth);
+                        String currentDate = String.format("%d-%d-%d", year, month + 1, dayOfMonth);
                         Toast.makeText(getContext(), currentDate, Toast.LENGTH_SHORT).show();
                         birthButton.setText(currentDate);
                     },

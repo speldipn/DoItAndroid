@@ -1,7 +1,6 @@
 package com.tpmn.doitandroid;
 
 import android.media.MediaPlayer;
-import android.provider.MediaStore;
 
 import java.io.IOException;
 
@@ -54,14 +53,14 @@ public class SampleAudioPlayer {
     }
 
     public void release() {
-        if(mediaPlayer != null) {
+        if (mediaPlayer != null) {
             mediaPlayer.release();
             mediaPlayer = null;
         }
     }
 
     public void setCompleteListener(MediaPlayer.OnCompletionListener listener) {
-        if(mediaPlayer != null) {
+        if (mediaPlayer != null) {
             mediaPlayer.setOnCompletionListener(listener);
         }
     }

@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="100dp"
+    android:elevation="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="true">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:elevation="5dp"
-        app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true">
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/white"
+      android:padding="5dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:padding="5dp">
+      <ImageView
+        android:id="@+id/cardThumbImageView"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="thumbnail"
+        android:scaleType="fitCenter" />
 
-            <ImageView
-                android:id="@+id/cardThumbImageView"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:contentDescription="thumbnail"
-                android:scaleType="fitCenter" />
+      <TextView
+        android:id="@+id/cardDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="end"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/cardThumbImageView"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/cardDateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="end"
-                android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/cardThumbImageView"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+    </RelativeLayout>
+  </androidx.cardview.widget.CardView>
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+  <androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:elevation="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="true">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:elevation="5dp"
-        app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true">
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/white"
+      android:padding="5dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:padding="5dp">
+      <ImageView
+        android:id="@+id/card2ThumbImageView"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="thumbnail"
+        android:scaleType="fitCenter" />
 
-            <ImageView
-                android:id="@+id/card2ThumbImageView"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:contentDescription="thumbnail"
-                android:scaleType="fitCenter" />
+      <TextView
+        android:id="@+id/card2DateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="end"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/card2ThumbImageView"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/card2DateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="end"
-                android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/card2ThumbImageView"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+  </androidx.cardview.widget.CardView>
 </LinearLayout>

@@ -3,9 +3,7 @@ package com.tpmn.doitandroid;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.graphics.Paint;
-import android.graphics.Region;
 import android.util.AttributeSet;
 import android.view.View;
 

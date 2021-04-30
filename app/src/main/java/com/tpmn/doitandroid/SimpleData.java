@@ -5,6 +5,17 @@ import android.os.Parcelable;
 
 class SimpleData implements Parcelable {
 
+    public static final Parcelable.Creator CREATOR = new Creator<SimpleData>() {
+        @Override
+        public SimpleData createFromParcel(Parcel source) {
+            return new SimpleData(source.readInt(), source.readString());
+        }
+
+        @Override
+        public SimpleData[] newArray(int size) {
+            return new SimpleData[size];
+        }
+    };
     int number;
     String message;
 
@@ -28,17 +39,5 @@ class SimpleData implements Parcelable {
         dest.writeInt(number);
         dest.writeString(message);
     }
-
-    public static final Parcelable.Creator CREATOR = new Creator<SimpleData>() {
-        @Override
-        public SimpleData createFromParcel(Parcel source) {
-            return new SimpleData(source.readInt(), source.readString());
-        }
-
-        @Override
-        public SimpleData[] newArray(int size) {
-            return new SimpleData[size];
-        }
-    };
 
 }

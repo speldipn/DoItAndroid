@@ -1,16 +1,15 @@
 package com.tpmn.doitandroid;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 import com.google.firebase.iid.InstanceIdResult;
 
 public class SamplePushActivity extends AppCompatActivity {
@@ -51,7 +50,7 @@ public class SamplePushActivity extends AppCompatActivity {
         });
     }
 
-    private void println(String msg){
+    private void println(String msg) {
         textView2.append(msg + "\n");
     }
 

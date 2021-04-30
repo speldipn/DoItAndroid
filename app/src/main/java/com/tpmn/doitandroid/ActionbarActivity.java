@@ -1,8 +1,6 @@
 package com.tpmn.doitandroid;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -11,7 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import static android.app.ActionBar.DISPLAY_SHOW_HOME;
 import static android.app.ActionBar.DISPLAY_USE_LOGO;
-import static androidx.appcompat.app.ActionBar.*;
+import static androidx.appcompat.app.ActionBar.DISPLAY_HOME_AS_UP;
+import static androidx.appcompat.app.ActionBar.DISPLAY_SHOW_TITLE;
 
 public class ActionbarActivity extends AppCompatActivity {
 
@@ -54,7 +53,7 @@ public class ActionbarActivity extends AppCompatActivity {
         showLogoButton.setOnClickListener(v -> {
                     getSupportActionBar().setLogo(R.drawable.home);
 //                    getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
-                    getSupportActionBar().setDisplayOptions(DISPLAY_SHOW_HOME | DISPLAY_USE_LOGO | DISPLAY_SHOW_TITLE  | DISPLAY_HOME_AS_UP);
+                    getSupportActionBar().setDisplayOptions(DISPLAY_SHOW_HOME | DISPLAY_USE_LOGO | DISPLAY_SHOW_TITLE | DISPLAY_HOME_AS_UP);
                 }
         );
     }

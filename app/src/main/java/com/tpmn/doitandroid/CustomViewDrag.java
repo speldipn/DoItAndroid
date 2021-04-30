@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -18,12 +17,11 @@ public class CustomViewDrag extends View {
     final static String TAG = "CustomViewDrag";
 
     private final int WIDTH = 200;
-    private boolean isMovable = false;
-
     Paint paint;
     Bitmap cacheBitmap;
     Canvas cacheCanvas;
     Rect myRect;
+    private boolean isMovable = false;
 
     public CustomViewDrag(Context context) {
         super(context);

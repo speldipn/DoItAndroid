@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -42,14 +41,14 @@ public class CustomViewDrawing extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(cacheBitmap != null) {
+        if (cacheBitmap != null) {
             canvas.drawBitmap(cacheBitmap, 0, 0, paint);
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_MOVE) {
+        if (event.getAction() == MotionEvent.ACTION_MOVE) {
             float x = event.getX();
             float y = event.getY();
             cacheCanvas.drawPoint(x, y, paint);

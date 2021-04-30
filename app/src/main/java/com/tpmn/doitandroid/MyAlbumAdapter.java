@@ -32,11 +32,13 @@ public class MyAlbumAdapter extends RecyclerView.Adapter<AlbumViewHolder> {
     }
 
     @Override
-    public int getItemCount() { return list.size(); }
+    public int getItemCount() {
+        return list.size();
+    }
 
     public void setData(List<AlbumModel> list) {
-       this.list = list;
-       notifyDataSetChanged();
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     class AlbumViewHolder extends RecyclerView.ViewHolder {

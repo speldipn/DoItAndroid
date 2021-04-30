@@ -1,12 +1,12 @@
 package com.tpmn.doitandroid;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class InputActivity extends AppCompatActivity {
 
@@ -19,7 +19,9 @@ public class InputActivity extends AppCompatActivity {
         thisView = LayoutInflater.from(this).inflate(R.layout.activity_input, null);
         setContentView(thisView);
         backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> { finish();});
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
 //        thisView.startAnimation(MainActivity.animLeft);
     }
 

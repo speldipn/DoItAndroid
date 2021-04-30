@@ -1,9 +1,5 @@
 package com.tpmn.doitandroid;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,12 +11,12 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.common.util.Strings;
-import com.google.android.gms.maps.CameraUpdate;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -30,17 +26,15 @@ import com.pedro.library.AutoPermissionsListener;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.security.Provider;
-
 public class SampleMapActivity extends AppCompatActivity implements AutoPermissionsListener {
 
     public static final int REQ_PERMS = 101;
-    GoogleMap map;
-    LatLng seoul = new LatLng(37, 127);
-    SupportMapFragment mapFragment;
     final String[] permissions = {
             Manifest.permission.ACCESS_FINE_LOCATION
     };
+    GoogleMap map;
+    LatLng seoul = new LatLng(37, 127);
+    SupportMapFragment mapFragment;
     Button button;
 
     @Override
@@ -84,8 +78,8 @@ public class SampleMapActivity extends AppCompatActivity implements AutoPermissi
     protected void onPause() {
         super.onPause();
 
-        if(map != null) {
-            if(checkPerms()) {
+        if (map != null) {
+            if (checkPerms()) {
                 map.setMyLocationEnabled(false);
             }
         }

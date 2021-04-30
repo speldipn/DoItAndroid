@@ -5,9 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +13,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 public class MyButton extends AppCompatButton {
     private int count = 0;
+
     public MyButton(@NonNull Context context) {
         super(context);
         init(context);
@@ -43,7 +42,7 @@ public class MyButton extends AppCompatButton {
     public boolean onTouchEvent(MotionEvent event) {
         Log.d("speldipn", "onTouchEvent()");
         int action = event.getAction();
-        switch(action) {
+        switch (action) {
             case MotionEvent.ACTION_DOWN:
                 setBackgroundColor(Color.BLUE);
                 setTextColor(Color.RED);
