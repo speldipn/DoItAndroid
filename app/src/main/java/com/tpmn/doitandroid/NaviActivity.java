@@ -28,7 +28,6 @@ public class NaviActivity extends AppCompatActivity {
     Toolbar toolBar;
     TabLayout tabs;
     FrameLayout container;
-    TextView titleTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,6 @@ public class NaviActivity extends AppCompatActivity {
         toolBar = findViewById(R.id.toolBar);
         tabs = findViewById(R.id.tabs);
         container = findViewById(R.id.container);
-        titleTextView = findViewById(R.id.titleTextView);
 
         tabs.addTab(tabs.newTab().setText("First"));
         tabs.addTab(tabs.newTab().setText("Second"));
@@ -52,12 +50,13 @@ public class NaviActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 String msg;
                 if (tab.getText().equals("First")) {
-                    msg = "First";
+                    msg = getString(R.string.first);
                 } else if (tab.getText().equals("Second")) {
-                    msg = "Second";
+                    msg = getString(R.string.second);
                 } else {
-                    msg = "Third";
+                    msg = getString(R.string.third);
                 }
+                toolBar.setTitle(msg);
                 Toast.makeText(NaviActivity.this, msg + " selected", Toast.LENGTH_SHORT).show();
             }
 
