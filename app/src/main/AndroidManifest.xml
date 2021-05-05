@@ -86,8 +86,6 @@
 
     <activity android:name=".LocationActivity" />
 
-    <activity android:name=".DrawerActivity" />
-
     <activity android:name=".InputActivity" />
 
     <activity android:name=".SmsActivity" />
