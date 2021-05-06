@@ -3,7 +3,9 @@
 
   <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar" />
 
-  <style name="AppThemeCustom" parent="Theme.AppCompat.NoActionBar" />
+  <style name="AppThemeCustom" parent="Theme.AppCompat.Light.NoActionBar" >
+    <item name="android:windowFullscreen">true</item>
+  </style>
 
   <style name="DialogOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
