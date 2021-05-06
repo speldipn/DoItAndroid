@@ -26,6 +26,18 @@
     android:theme="@style/AppThemeCustom"
     android:usesCleartextTraffic="true">
 
+    <activity android:name=".ServiceActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+
+    <service
+      android:name=".MyService"
+      android:enabled="true"
+      android:exported="true" />
+
     <meta-data
       android:name="com.google.android.geo.API_KEY"
       android:value="@string/google_maps_key" />
@@ -58,10 +70,6 @@
         <action android:name="com.google.firebase.MESSAGING_EVNET" />
       </intent-filter>
     </service>
-    <service
-      android:name=".MyService"
-      android:enabled="true"
-      android:exported="false" />
 
     <activity
       android:name=".NaviActivity"
@@ -82,14 +90,7 @@
     <activity
       android:name=".MenuActivity"
       android:label="메뉴 Activity" />
-
-    <activity android:name=".DrawerActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-
+    <activity android:name=".DrawerActivity" />
   </application>
 
 </manifest>
