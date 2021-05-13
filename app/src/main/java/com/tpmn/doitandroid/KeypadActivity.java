@@ -26,8 +26,6 @@ public class KeypadActivity extends AppCompatActivity {
        button.setOnClickListener(v -> {
            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-
        });
-
     }
 }
