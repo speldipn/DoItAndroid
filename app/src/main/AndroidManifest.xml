@@ -26,13 +26,15 @@
     android:theme="@style/AppThemeCustom"
     android:usesCleartextTraffic="true">
 
-    <activity android:name=".ThreadAnimationActivity">
+    <activity android:name=".NetworkActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
+
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
 
+    <activity android:name=".ThreadAnimationActivity" />
     <activity android:name=".LooperActivity" />
     <activity android:name=".DelayedActivity" />
     <activity
